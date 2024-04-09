@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "298439429650",
+    "project_id": "testproject-597ac",
+    "storage_bucket": "testproject-597ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298439429650:android:f7b30f3a6ff5389e3152cb",
+        "android_client_info": {
+          "package_name": "com.itproger.vacuummovies"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvk1wB536usFDl3kOQjqEI5zipgrm7UTM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

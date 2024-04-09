@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">VacuumMovies</string>
+    <string name="login">Логин</string>
+    <string name="email">Email</string>
+    <string name="password">Пароль</string>
+    <string name="register">Регистрация</string>
+    <string name="click_to_login">Нажмите для входа в систему</string>
+    <string name="click_to_register">Нажмите для регистрации</string>
+</resources>
