@@ -84,9 +84,24 @@ public class RegisterActivity extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
 
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(RegisterActivity.this, "Аккаунт создан",
-                                            Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    if (user != null) {
+                                        user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> emailtask) {
+                                                if (emailtask.isSuccessful()) {
+                                                    // Письмо с подтверждением отправлено успешно
+                                                    Toast.makeText(RegisterActivity.this, "Аккаунт создан. Проверьте вашу почту для подтверждения.", Toast.LENGTH_LONG).show();
+                                                } else {
+                                                    // Ошибка отправки письма с подтверждением
+                                                    Toast.makeText(RegisterActivity.this, "Ошибка отправки письма с подтверждением", Toast.LENGTH_LONG).show();
+
+                                                }
+                                            }
+                                        });
+                                    }
+                                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
