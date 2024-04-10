@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">VacuumMovies</string>
-    <string name="login">Логин</string>
+    <string name="app_name">Vacuum Movies</string>
+    <string name="navigation_drawer_open">Open Navigation Drawer</string>
+    <string name="navigation_drawer_close">Close Navigation Drawer</string>
+    <string name="login">Войти</string>
     <string name="email">Email</string>
     <string name="password">Пароль</string>
     <string name="register">Регистрация</string>
@@ -8,4 +10,6 @@
     <string name="click_to_register">Нажмите для регистрации</string>
     <string name="logout">Выйти</string>
     <string name="enter_password">Введите пароль</string>
+    <string name="settings">Настройки</string>
+    <string name="profile">Профиль</string>
 </resources>
