@@ -7,4 +7,5 @@
     <string name="click_to_login">Нажмите для входа в систему</string>
     <string name="click_to_register">Нажмите для регистрации</string>
     <string name="logout">Выйти</string>
+    <string name="enter_password">Введите пароль</string>
 </resources>
