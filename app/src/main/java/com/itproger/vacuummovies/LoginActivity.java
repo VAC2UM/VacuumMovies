@@ -59,7 +59,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -94,7 +93,6 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.makeText(getApplicationContext(), "Вход выполнен успешно", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivity(intent);
-                                        finish();
                                     } else if (user != null) {
                                         // Аккаунт не подтвержден
                                         Toast.makeText(LoginActivity.this, "Подтвердите вашу почту", Toast.LENGTH_SHORT).show();
@@ -115,7 +113,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, SettingsActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
     }
