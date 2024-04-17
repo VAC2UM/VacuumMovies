@@ -13,6 +13,11 @@
     <string name="settings">Настройки</string>
     <string name="profile">Профиль</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="add_film">Добавить фильм</string>
+    <string name="film_name">Название фильма</string>
+    <string name="film_date">Год выпуска фильма</string>
+    <string name="film_director">Режиссер фильма</string>
+
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
