@@ -26,7 +26,6 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textView;
-    ImageView settings;
 
 
     @Override
@@ -51,7 +50,6 @@ public class RegisterActivity extends AppCompatActivity {
         buttonReg = findViewById(R.id.btn_register);
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.loginNow);
-        settings = findViewById(R.id.settings);
 
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,15 +114,6 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         });
 
-            }
-        });
-
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(RegisterActivity.this, SettingsActivity.class);
-                startActivity(intent);
-                finish();
             }
         });
     }

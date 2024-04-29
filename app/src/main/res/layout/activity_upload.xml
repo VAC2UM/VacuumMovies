@@ -48,6 +48,7 @@
                 android:layout_marginTop="20dp"
                 android:gravity="start|center_vertical"
                 android:hint="@string/film_date"
+                android:inputType="number"
                 android:padding="16dp"
                 android:textColor="@color/lavender" />
 

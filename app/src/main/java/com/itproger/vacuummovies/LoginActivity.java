@@ -27,7 +27,6 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textView;
-    ImageView settings;
 
 
     @Override
@@ -52,7 +51,6 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin = findViewById(R.id.btn_login);
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.registerNow);
-        settings = findViewById(R.id.settings);
 
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,14 +103,6 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         });
-            }
-        });
-
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, SettingsActivity.class);
-                startActivity(intent);
             }
         });
     }
