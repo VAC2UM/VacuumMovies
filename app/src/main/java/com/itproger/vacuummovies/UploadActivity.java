@@ -11,13 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class UploadActivity extends AppCompatActivity {
     EditText filmName, filmYear, filmDirector;
-    FirebaseDatabase db;
-    DatabaseReference reference;
     Button addFilm;
 
     @Override
@@ -68,15 +65,16 @@ public class UploadActivity extends AppCompatActivity {
         String year = filmYear.getText().toString();
         String director = filmDirector.getText().toString();
 
-        Films films = new Films(name, year, director);
+        Film film = new Film(name, year, director);
 
-        FirebaseDatabase.getInstance().getReference("Films").child(name).setValue(films).addOnCompleteListener(new OnCompleteListener<Void>() {
+        FirebaseDatabase.getInstance().getReference("Films").child(name).setValue(film).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()) {
+                if (task.isSuccessful()) {
                     Toast.makeText(UploadActivity.this, "Фильм успешно добавлен", Toast.LENGTH_SHORT).show();
                     finish();
-                }            }
+                }
+            }
         });
     }
 }

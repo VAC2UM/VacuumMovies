@@ -1,12 +1,12 @@
 package com.itproger.vacuummovies;
 
-public class Films {
+public class Film {
     String name, date, director;
 
-    public Films() {
+    public Film() {
     }
 
-    public Films(String name, String date, String director) {
+    public Film(String name, String date, String director) {
         this.name = name;
         this.date = date;
         this.director = director;
