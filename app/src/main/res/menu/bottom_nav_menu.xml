@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/filmsList"
-        android:icon="@drawable/list_icon"
+        android:icon="@drawable/films_ison"
         android:title="@string/films" />
     <item
         android:id="@+id/profile"
