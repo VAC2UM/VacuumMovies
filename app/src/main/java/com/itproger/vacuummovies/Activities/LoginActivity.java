@@ -1,4 +1,4 @@
-package com.itproger.vacuummovies;
+package com.itproger.vacuummovies.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +19,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.itproger.vacuummovies.R;
 
 public class LoginActivity extends AppCompatActivity {
     TextInputEditText editTextEmail, editTextPassword;

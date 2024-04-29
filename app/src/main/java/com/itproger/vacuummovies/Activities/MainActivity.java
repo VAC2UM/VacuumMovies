@@ -1,4 +1,4 @@
-package com.itproger.vacuummovies;
+package com.itproger.vacuummovies.Activities;
 
 import android.os.Bundle;
 
@@ -7,6 +7,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.itproger.vacuummovies.Fragments.FilmsFragment;
+import com.itproger.vacuummovies.Fragments.ProfileFragment;
+import com.itproger.vacuummovies.R;
+import com.itproger.vacuummovies.Fragments.SettingsFragment;
 import com.itproger.vacuummovies.databinding.ActivityMainBinding;
 
 

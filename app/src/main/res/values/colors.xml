@@ -9,4 +9,7 @@
     <color name="yellow">#FFC107</color>
     <color name="orange">#ffa500</color>
     <color name="dark_blue">#252836</color>
+
+    <color name="bottom_nav_selected_text">#FFFFFF</color>
+    <color name="bottom_nav_unselected_text">#828287</color>
 </resources>

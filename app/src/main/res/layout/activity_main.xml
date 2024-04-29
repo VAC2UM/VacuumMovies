@@ -6,7 +6,7 @@
     android:background="@color/main_color"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Activities.MainActivity">
 
     <FrameLayout
         android:id="@+id/frame_layout"
@@ -23,6 +23,7 @@
         android:id="@+id/bottomNavigatiomView"
         android:layout_width="match_parent"
         app:itemIconSize="35dp"
+        app:itemIconTint="@null"
         app:itemTextColor="@color/white"
         android:background="@color/main_color"
         android:layout_height="wrap_content"

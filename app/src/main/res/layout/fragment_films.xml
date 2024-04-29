@@ -2,8 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/main_color"
     android:layout_height="match_parent"
-    tools:context=".FilmsFragment">
+    tools:context=".Fragments.FilmsFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,14 +15,23 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+
             <EditText
                 android:id="@+id/editTextText2"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:ems="10"
-                android:inputType="text"
-                android:text="Name" />
+                android:hint="Поиск фильма..."
+                android:inputType="text" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/films_icon"/>
+
         </LinearLayout>
+
+
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

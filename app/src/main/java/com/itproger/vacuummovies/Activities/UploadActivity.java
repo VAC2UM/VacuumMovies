@@ -1,4 +1,4 @@
-package com.itproger.vacuummovies;
+package com.itproger.vacuummovies.Activities;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
+import com.itproger.vacuummovies.Film;
+import com.itproger.vacuummovies.R;
 
 public class UploadActivity extends AppCompatActivity {
     EditText filmName, filmYear, filmDirector;
