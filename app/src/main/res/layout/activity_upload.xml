@@ -5,8 +5,10 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_color"
     tools:context=".Activities.UploadActivity">
 
+    <!-- TODO: Добвить постер фйильма-->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:background="@color/main_color"
             android:orientation="vertical"
             android:padding="20dp">
 
@@ -31,6 +34,13 @@
                 android:textColor="@color/lavender"
                 android:textSize="30sp" />
 
+            <ImageView
+                android:id="@+id/uploadImage"
+                android:src="@drawable/uploadimage"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginTop="10dp" />
+
             <EditText
                 android:id="@+id/film_name"
                 android:layout_width="match_parent"
@@ -39,7 +49,8 @@
                 android:gravity="start|center_vertical"
                 android:hint="@string/film_name"
                 android:padding="16dp"
-                android:textColor="@color/lavender" />
+                android:textColor="@color/white"
+                android:textColorHint="@color/grey" />
 
             <EditText
                 android:id="@+id/film_year"
@@ -50,7 +61,8 @@
                 android:hint="@string/film_date"
                 android:inputType="number"
                 android:padding="16dp"
-                android:textColor="@color/lavender" />
+                android:textColor="@color/white"
+                android:textColorHint="@color/grey" />
 
             <EditText
                 android:id="@+id/film_director"
@@ -60,14 +72,17 @@
                 android:gravity="start|center_vertical"
                 android:hint="@string/film_director"
                 android:padding="16dp"
-                android:textColor="@color/lavender" />
+                android:textColor="@color/white"
+                android:textColorHint="@color/grey" />
+
 
             <Button
                 android:id="@+id/add_film"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Добавить фильм" />
+                android:text="Добавить фильм"
+                android:textColorHint="@color/white" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

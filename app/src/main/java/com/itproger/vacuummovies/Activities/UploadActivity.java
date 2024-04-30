@@ -35,31 +35,6 @@ public class UploadActivity extends AppCompatActivity {
                 uploadData();
             }
         });
-
-//        binding.addFilm.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                name = binding.filmName.getText().toString();
-//                date = binding.filmDate.getText().toString();
-//                director = binding.filmDirector.getText().toString();
-//
-//                if (!name.isEmpty() && !director.isEmpty() && !date.isEmpty()) {
-//                    Films films = new Films(name, date, director);
-//                    db = FirebaseDatabase.getInstance();
-//                    reference = db.getReference("Films");
-//                    reference.child(name).setValue(films).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//                            binding.filmName.setText("");
-//                            binding.filmDate.setText("");
-//                            binding.filmDirector.setText("");
-//                            Toast.makeText(UploadActivity.this, "Фильм успешно добавлен", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//                }
-//            }
-//        });
-//--------------------------------------------
     }
 
     public void uploadData() {
