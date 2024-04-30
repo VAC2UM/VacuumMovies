@@ -1,15 +1,19 @@
 package com.itproger.vacuummovies;
 
 public class Film {
-    String name, date, director;
+    private String name;
+    private String year;
+    private String director;
+    private String dataImage;
 
     public Film() {
     }
 
-    public Film(String name, String date, String director) {
+    public Film(String name, String year, String director, String dataImage) {
         this.name = name;
-        this.date = date;
+        this.year = year;
         this.director = director;
+        this.dataImage = dataImage;
     }
 
     public String getName() {
@@ -20,12 +24,12 @@ public class Film {
         this.name = name;
     }
 
-    public String getDate() {
-        return date;
+    public String getYear() {
+        return year;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setYear(String year) {
+        this.year = year;
     }
 
     public String getDirector() {
@@ -34,5 +38,13 @@ public class Film {
 
     public void setDirector(String director) {
         this.director = director;
+    }
+
+    public String getDataImage() {
+        return dataImage;
+    }
+
+    public void setDataImage(String dataImage) {
+        this.dataImage = dataImage;
     }
 }
