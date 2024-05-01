@@ -15,9 +15,9 @@
     <string name="profile">Профиль</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="add_film">Добавить фильм</string>
-    <string name="film_name">Название фильма</string>
-    <string name="film_date">Год выпуска фильма</string>
-    <string name="film_director">Режиссер фильма</string>
+    <string name="film_name">Название</string>
+    <string name="film_date">Год выпуска</string>
+    <string name="film_director">Режиссер</string>
     <string name="films">Фильмы</string>
 
 
@@ -35,6 +35,5 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

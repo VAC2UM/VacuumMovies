@@ -2,7 +2,12 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.VacuumMovies" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+         <item name="colorPrimary">@color/main_color</item>
+    </style>
+
+    <style name="roundedImageRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10%</item>
     </style>
 
     <style name="Theme.VacuumMovies" parent="Base.Theme.VacuumMovies" />

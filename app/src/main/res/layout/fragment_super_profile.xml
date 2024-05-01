@@ -4,24 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_color"
-    tools:context=".Fragments.ProfileFragment">
+    tools:context=".Fragments.SuperProfileFragment">
 
-    <!-- TODO: Исправить кнопку выхода из системы -->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/exit"-->
-    <!--        android:layout_width="117dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginStart="141dp"-->
-    <!--        android:layout_marginTop="574dp"-->
-    <!--        android:layout_marginEnd="153dp"-->
-    <!--        android:layout_marginBottom="68dp"-->
-    <!--        android:text="@string/logout" />-->
-
+    <!-- TODO: Сделать суперпрофиль -->
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Профиль"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Суперпрофиль"
         android:textColor="@color/white"
         android:textSize="50sp" />
 
@@ -34,6 +23,5 @@
         android:layout_margin="40dp"
         android:backgroundTint="@color/lavender"
         android:src="@drawable/baseline_add_24" />
-
 
 </RelativeLayout>
