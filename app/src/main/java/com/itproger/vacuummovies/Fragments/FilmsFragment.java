@@ -9,12 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.itproger.vacuummovies.Adapter.MyAdapter;
 import com.itproger.vacuummovies.Film;
 import com.itproger.vacuummovies.R;
@@ -52,7 +54,7 @@ public class FilmsFragment extends Fragment {
 
     GridView gridView;
     ArrayList<Film> filmsList;
-    MyAdapter adapter;
+    FirebaseDatabase db;
     final private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Films");
 
     @Override
@@ -61,26 +63,55 @@ public class FilmsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_films, container, false);
 
         gridView = rootView.findViewById(R.id.gridView);
-
         filmsList = new ArrayList<>();
-        adapter = new MyAdapter(filmsList, getContext());
-        gridView.setAdapter(adapter);
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        db = FirebaseDatabase.getInstance();
+
+        loadDatainGridView();
+//        gridView = rootView.findViewById(R.id.gridView);
+//
+//        filmsList = new ArrayList<>();
+//        adapter = new MyAdapter(filmsList, getContext());
+//        gridView.setAdapter(adapter);
+//
+//        databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+//                    Film film = dataSnapshot.getValue(Film.class);
+//                    filmsList.add(film);
+//                }
+//                adapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+        return rootView;
+    }
+
+    private void loadDatainGridView() {
+        db.getReference("Films").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Film film = dataSnapshot.getValue(Film.class);
-                    filmsList.add(film);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Film film = snapshot.getValue(Film.class);
+                        filmsList.add(film);
+                    }
+                    MyAdapter adapter = new MyAdapter(getContext(), filmsList);
+                    gridView.setAdapter(adapter);
+                } else {
+                    Toast.makeText(getContext(), "No data found in Database", Toast.LENGTH_SHORT).show();
                 }
-                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(getContext(), "Fail to load data..", Toast.LENGTH_SHORT).show();
             }
         });
-        return rootView;
     }
 }

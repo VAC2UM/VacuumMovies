@@ -4,53 +4,48 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.itproger.vacuummovies.Film;
 import com.itproger.vacuummovies.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class MyAdapter extends BaseAdapter {
+public class MyAdapter extends ArrayAdapter<Film> {
+
+    public MyAdapter(Context context, ArrayList<Film> filmArrayList) {
+        super(context, 0, filmArrayList);
+    }
 
     private ArrayList<Film> filmList;
     private Context context;
     LayoutInflater layoutInflater;
 
-    public MyAdapter(ArrayList<Film> filmList, Context context) {
-        this.filmList = filmList;
-        this.context = context;
-    }
-
     @Override
-    public int getCount() {
-        return filmList.size();
-    }
-
-    @Override
-    public Object getItem(int i) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return 0;
-    }
-
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        if (layoutInflater == null) {
-            layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public View getView(int position, @NonNull View convertView, @NonNull ViewGroup parent) {
+        View listItemView = convertView;
+        if(listItemView == null){
+            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.grid_item, parent, false);
         }
-        if (view == null) {
-            view = layoutInflater.inflate(R.layout.grid_item, null);
-        }
-        ImageView gridImage = view.findViewById(R.id.gridImage);
 
-        Glide.with(context).load(filmList.get(i).getDataImage()).into(gridImage);
-        return view;
+        Film film = getItem(position);
+        ImageView poster = listItemView.findViewById(R.id.gridImage);
+
+        Picasso.get().load(film.getDataImage()).into(poster);
+
+        listItemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: Сделать переход на страницу с информацией о фильме
+                Toast.makeText(getContext(), "Фильм: " + film.getName(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        return listItemView;
     }
 }
