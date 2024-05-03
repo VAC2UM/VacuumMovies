@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.bumptech.glide.Glide;
 import com.itproger.vacuummovies.Film;
 import com.itproger.vacuummovies.R;
 import com.squareup.picasso.Picasso;
@@ -23,9 +22,6 @@ public class MyAdapter extends ArrayAdapter<Film> {
         super(context, 0, filmArrayList);
     }
 
-    private ArrayList<Film> filmList;
-    private Context context;
-    LayoutInflater layoutInflater;
 
     @Override
     public View getView(int position, @NonNull View convertView, @NonNull ViewGroup parent) {
