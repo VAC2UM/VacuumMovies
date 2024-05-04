@@ -44,14 +44,12 @@ public class MyAdapter extends ArrayAdapter<Film> {
         listItemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: Сделать переход на страницу с информацией о фильме
-
                 // Создаем новый экземпляр фрагмента FilmDetailFragment
                 FilmDetailFragment filmDetailFragment = new FilmDetailFragment();
 
                 // Передаем в фрагмент данные о фильме
                 Bundle bundle = new Bundle();
-                bundle.putString("filmName", film.getName());
+                bundle.putString("name", film.getName());
                 filmDetailFragment.setArguments(bundle);
 
                 // Заменяем текущий фрагмент на FilmDetailFragment

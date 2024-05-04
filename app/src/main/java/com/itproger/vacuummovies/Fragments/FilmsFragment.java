@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.itproger.vacuummovies.Adapter.MyAdapter;
+import com.itproger.vacuummovies.Constant;
 import com.itproger.vacuummovies.Film;
 import com.itproger.vacuummovies.R;
 
@@ -43,7 +44,7 @@ public class FilmsFragment extends Fragment {
     }
 
     private void loadDatainGridView() {
-        db.getReference("Films").addListenerForSingleValueEvent(new ValueEventListener() {
+        db.getReference(Constant.FILMS).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
