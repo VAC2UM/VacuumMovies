@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.itproger.vacuummovies.Activities.UploadActivity;
 import com.itproger.vacuummovies.Film;
 import com.itproger.vacuummovies.Fragments.FilmDetailFragment;
 import com.itproger.vacuummovies.R;
@@ -32,7 +33,7 @@ public class MyAdapter extends ArrayAdapter<Film> {
     @Override
     public View getView(int position, @NonNull View convertView, @NonNull ViewGroup parent) {
         View listItemView = convertView;
-        if(listItemView == null){
+        if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.grid_item, parent, false);
         }
 
@@ -50,6 +51,9 @@ public class MyAdapter extends ArrayAdapter<Film> {
                 // Передаем в фрагмент данные о фильме
                 Bundle bundle = new Bundle();
                 bundle.putString("name", film.getName());
+                bundle.putString("director", film.getDirector());
+                bundle.putString("year", film.getYear());
+                bundle.putString("dataImage", film.getDataImage());
                 filmDetailFragment.setArguments(bundle);
 
                 // Заменяем текущий фрагмент на FilmDetailFragment
