@@ -11,38 +11,41 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="17dp"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="14dp">
+            android:layout_marginTop="14dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/detailTitle"
-                android:layout_width="220dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:text="Название"
                 android:textColor="@color/lavender"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/detailYear"
-                    android:layout_width="80dp"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
+                    android:text="2019"
                     android:textColor="@color/lavender"
                     android:textSize="18sp" />
 
                 <TextView
-                    android:layout_width="140dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
                     android:text="Directed by"
                     android:textColor="@color/lavender"
                     android:textSize="18sp" />
@@ -50,9 +53,9 @@
 
             <TextView
                 android:id="@+id/detailDirector"
-                android:layout_width="220dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
+                android:text="Директор"
                 android:textColor="@color/lavender"
                 android:textSize="18sp" />
 
@@ -60,12 +63,9 @@
 
         <ImageView
             android:id="@+id/detailImage"
-            android:layout_width="140dp"
-            android:layout_height="180dp"
-            android:layout_gravity="right"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
             android:layout_marginTop="14dp"
-            android:layout_marginRight="20dp"
-            android:padding="8dp"
             android:scaleType="fitXY"
             android:src="@drawable/uploadimage" />
 

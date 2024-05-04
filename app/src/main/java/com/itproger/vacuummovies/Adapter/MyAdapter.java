@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.itproger.vacuummovies.Activities.UploadActivity;
+import com.itproger.vacuummovies.Constant;
 import com.itproger.vacuummovies.Film;
 import com.itproger.vacuummovies.Fragments.FilmDetailFragment;
 import com.itproger.vacuummovies.R;
@@ -50,10 +51,8 @@ public class MyAdapter extends ArrayAdapter<Film> {
 
                 // Передаем в фрагмент данные о фильме
                 Bundle bundle = new Bundle();
-                bundle.putString("name", film.getName());
-                bundle.putString("director", film.getDirector());
-                bundle.putString("year", film.getYear());
-                bundle.putString("dataImage", film.getDataImage());
+                bundle.putString(Constant.NAME, film.getName());
+                bundle.putString(Constant.DATAIMAGE, film.getDataImage());
                 filmDetailFragment.setArguments(bundle);
 
                 // Заменяем текущий фрагмент на FilmDetailFragment
