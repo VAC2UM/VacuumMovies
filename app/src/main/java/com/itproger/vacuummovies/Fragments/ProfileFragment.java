@@ -1,19 +1,15 @@
 package com.itproger.vacuummovies.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
-import com.itproger.vacuummovies.Activities.LoginActivity;
-import com.itproger.vacuummovies.Activities.UploadActivity;
 import com.itproger.vacuummovies.R;
 
 public class ProfileFragment extends Fragment {
@@ -30,8 +26,15 @@ public class ProfileFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), UploadActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getContext(), UploadActivity.class);
+//                startActivity(intent);
+                // Заменяем текущий фрагмент на UploadFragment
+                UploadFragment uploadFragment = new UploadFragment();
+                ((AppCompatActivity) getContext()).getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frame_layout, uploadFragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 //        exit.setOnClickListener(new View.OnClickListener() {

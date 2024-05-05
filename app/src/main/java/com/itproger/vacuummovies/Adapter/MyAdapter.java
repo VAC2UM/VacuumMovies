@@ -11,11 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.itproger.vacuummovies.Activities.UploadActivity;
 import com.itproger.vacuummovies.Constant;
 import com.itproger.vacuummovies.Film;
 import com.itproger.vacuummovies.Fragments.FilmDetailFragment;

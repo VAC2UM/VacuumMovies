@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.FilmsFragment">
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search"
+        android:backgroundTint="#9873AC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/lavender_border"
+        android:focusable="false"
+        app:closeIcon="@drawable/baseline_clear_24"
+        app:iconifiedByDefault="false"
+        app:queryHint="Поиск..."
+        app:searchHintIcon="@null"
+        app:searchIcon="@drawable/search" />
+
     <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="2"/>
+        android:layout_below="@id/search"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
+        android:numColumns="2" />
 
 </RelativeLayout>

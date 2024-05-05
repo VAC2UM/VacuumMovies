@@ -3,6 +3,7 @@ package com.itproger.vacuummovies.Fragments;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -29,12 +30,15 @@ public class FilmsFragment extends Fragment {
     GridView gridView;
     ArrayList<Film> filmsList;
     FirebaseDatabase db;
+    SearchView searchView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_films, container, false);
 
         gridView = rootView.findViewById(R.id.gridView);
+        searchView = rootView.findViewById(R.id.search);
+
         filmsList = new ArrayList<>();
 
         db = FirebaseDatabase.getInstance();
@@ -64,5 +68,29 @@ public class FilmsFragment extends Fragment {
                 Toast.makeText(getContext(), "Fail to load data..", Toast.LENGTH_SHORT).show();
             }
         });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searhList(newText);
+                return false;
+            }
+        });
+    }
+
+    public void searhList(String text) {
+        ArrayList<Film> searchList = new ArrayList<>();
+        for (Film film : filmsList) {
+            if(film.getName().toLowerCase().contains(text.toLowerCase())){
+                searchList.add(film);
+            }
+        }
+        MyAdapter adapter = new MyAdapter(getContext(), searchList);
+        gridView.setAdapter(adapter);
     }
 }

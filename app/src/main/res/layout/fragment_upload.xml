@@ -2,11 +2,10 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_color"
-    tools:context=".Activities.UploadActivity">
+    tools:context=".Fragments.UploadFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -35,10 +34,10 @@
 
             <ImageView
                 android:id="@+id/uploadImage"
-                android:src="@drawable/uploadimage"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp"
+                android:src="@drawable/uploadimage" />
 
             <EditText
                 android:id="@+id/film_name"
@@ -85,4 +84,5 @@
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
 </ScrollView>
