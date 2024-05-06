@@ -8,13 +8,13 @@
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search"
-        android:backgroundTint="#9873AC"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="12dp"
         android:background="@drawable/lavender_border"
         android:focusable="false"
+        android:theme="@style/toolbar"
         app:closeIcon="@drawable/baseline_clear_24"
         app:iconifiedByDefault="false"
         app:queryHint="Поиск..."

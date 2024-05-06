@@ -1,25 +1,36 @@
 package com.itproger.vacuummovies.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.itproger.vacuummovies.Constant;
 import com.itproger.vacuummovies.Fragments.FilmsFragment;
 import com.itproger.vacuummovies.Fragments.ProfileFragment;
 import com.itproger.vacuummovies.Fragments.SettingsFragment;
+import com.itproger.vacuummovies.Fragments.SuperProfileFragment;
 import com.itproger.vacuummovies.R;
+import com.itproger.vacuummovies.User;
 import com.itproger.vacuummovies.databinding.ActivityMainBinding;
 
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
+    boolean isSup;
 
-//    FirebaseDatabase database;
-//    DatabaseReference ref;
+    FirebaseDatabase db;
 
 
     @Override
@@ -29,8 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         replaceFragment(new FilmsFragment());
 
-//        database = FirebaseDatabase.getInstance();
-//        ref = database.getReference("Users");
+        db = FirebaseDatabase.getInstance();
 
         binding.bottomNavigatiomView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -38,20 +48,8 @@ public class MainActivity extends AppCompatActivity {
             if (itemId == R.id.filmsList) {
                 replaceFragment(new FilmsFragment());
             } else if (itemId == R.id.profile) {
-                // TODO: Сделать проверку на суперпользователя
                 replaceFragment(new ProfileFragment());
-//                ref.addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        User user = snapshot.getValue(User.class);
-//                        Toast.makeText(MainActivity.this, "Фильм: " + user.getEmail(), Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
+                // TODO: Сделать проверку на суперпользователя
             } else if (itemId == R.id.settings) {
                 replaceFragment(new SettingsFragment());
             }

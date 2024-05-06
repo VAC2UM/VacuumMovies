@@ -3,6 +3,7 @@ package com.itproger.vacuummovies.Fragments;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
@@ -31,10 +32,19 @@ public class FilmsFragment extends Fragment {
     ArrayList<Film> filmsList;
     FirebaseDatabase db;
     SearchView searchView;
+
+    AlertDialog.Builder builder;
+    AlertDialog dialog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_films, container, false);
+
+        builder = new AlertDialog.Builder(getContext());
+        builder.setCancelable(false);
+        builder.setView(R.layout.loading_layout);
+        dialog = builder.create();
+        dialog.show();
 
         gridView = rootView.findViewById(R.id.gridView);
         searchView = rootView.findViewById(R.id.search);
@@ -58,14 +68,21 @@ public class FilmsFragment extends Fragment {
                     }
                     MyAdapter adapter = new MyAdapter(getContext(), filmsList);
                     gridView.setAdapter(adapter);
+
+                    // Закрываем диалоговое окно загрузки после установки адаптера
+                    dialog.dismiss();
                 } else {
                     Toast.makeText(getContext(), "No data found in Database", Toast.LENGTH_SHORT).show();
+                    // В случае отсутствия данных также закрываем диалоговое окно
+                    dialog.dismiss();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getContext(), "Fail to load data..", Toast.LENGTH_SHORT).show();
+                // В случае ошибки также закрываем диалоговое окно
+                dialog.dismiss();
             }
         });
 

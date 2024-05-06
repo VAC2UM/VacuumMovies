@@ -1,6 +1,7 @@
 package com.itproger.vacuummovies;
 
 public class User {
+    // TODO: Добавить поле пароля
     String email, username;
     boolean superUser;
 
@@ -26,7 +27,7 @@ public class User {
         this.email = email;
     }
 
-    public boolean isSuperUser() {
+    public boolean getSuperUser() {
         return superUser;
     }
 

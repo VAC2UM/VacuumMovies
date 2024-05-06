@@ -6,24 +6,22 @@
     android:background="@color/main_color"
     tools:context=".Fragments.ProfileFragment">
 
-    <!-- TODO: Исправить кнопку выхода из системы -->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/exit"-->
-    <!--        android:layout_width="117dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginStart="141dp"-->
-    <!--        android:layout_marginTop="574dp"-->
-    <!--        android:layout_marginEnd="153dp"-->
-    <!--        android:layout_marginBottom="68dp"-->
-    <!--        android:text="@string/logout" />-->
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Профиль"
         android:textColor="@color/white"
         android:textSize="50sp" />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="120dp"
+        android:text="@string/logout" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
