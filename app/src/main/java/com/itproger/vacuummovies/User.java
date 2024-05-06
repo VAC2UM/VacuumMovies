@@ -27,7 +27,7 @@ public class User {
         this.email = email;
     }
 
-    public boolean isSuperUser() {
+    public boolean getSuperUser() {
         return superUser;
     }
 
