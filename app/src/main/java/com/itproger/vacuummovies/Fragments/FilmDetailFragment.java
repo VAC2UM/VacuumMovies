@@ -37,8 +37,8 @@ public class FilmDetailFragment extends Fragment {
         // Получаем данные о фильме из Bundle
         Bundle bundle = getArguments();
         if (bundle != null) {
-            String fName = bundle.getString("name");
-            Glide.with(getContext()).load(bundle.getString("dataImage")).into(detailImage);
+            String fName = bundle.getString(Constant.NAME);
+            Glide.with(getContext()).load(bundle.getString(Constant.DATAIMAGE)).into(detailImage);
             loadFilmData(fName);
         }
 

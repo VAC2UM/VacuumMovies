@@ -30,8 +30,6 @@ public class ProfileFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getContext(), UploadActivity.class);
-//                startActivity(intent);
                 // Заменяем текущий фрагмент на UploadFragment
                 UploadFragment uploadFragment = new UploadFragment();
                 ((AppCompatActivity) getContext()).getSupportFragmentManager()

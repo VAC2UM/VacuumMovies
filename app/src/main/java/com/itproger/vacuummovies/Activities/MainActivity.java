@@ -27,6 +27,9 @@ import com.itproger.vacuummovies.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
+    //    Использование binding в Android дает доступ к представлениям (views) макета (layout) напрямую
+//    из кода без необходимости вызова метода findViewById().
+//    Он упрощает работу с представлениями и делает код более чистым и лаконичным.
     ActivityMainBinding binding;
     boolean isSup;
 
@@ -48,8 +51,7 @@ public class MainActivity extends AppCompatActivity {
             if (itemId == R.id.filmsList) {
                 replaceFragment(new FilmsFragment());
             } else if (itemId == R.id.profile) {
-                replaceFragment(new ProfileFragment());
-                // TODO: Сделать проверку на суперпользователя
+                userSuperUser();
             } else if (itemId == R.id.settings) {
                 replaceFragment(new SettingsFragment());
             }
@@ -57,10 +59,27 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // Замена одного фрагмента на другой
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
+    }
+
+    private void userSuperUser() {
+        Intent intent = getIntent();
+
+        String nameUser = intent.getStringExtra(Constant.USERNAME);
+        String emailUser = intent.getStringExtra(Constant.EMAIL);
+        String passwordUser = intent.getStringExtra(Constant.PASSWORD);
+        boolean isSuperUser = intent.getBooleanExtra(Constant.SUPERUSER, false);
+
+        // Отображение определенного фрагмента в зависимости от роли пользователя
+        if (isSuperUser) {
+            replaceFragment(new SuperProfileFragment());
+        } else {
+            replaceFragment(new ProfileFragment());
+        }
     }
 }

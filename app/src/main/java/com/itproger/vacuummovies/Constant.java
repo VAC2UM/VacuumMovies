@@ -7,4 +7,8 @@ public class Constant {
     public final static String NAME = "name";
     public final static String YEAR = "year";
     public final static String DIRECTOR = "director";
+    public final static String PASSWORD = "password";
+    public final static String SUPERUSER = "superUser";
+    public final static String EMAIL = "email";
+    public final static String USERNAME = "username";
 }
