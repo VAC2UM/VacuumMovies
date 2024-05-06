@@ -19,38 +19,61 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.itproger.vacuummovies.Constant;
 import com.itproger.vacuummovies.R;
 
+import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
+import java.security.MessageDigest;
+
+
 public class LoginActivity extends AppCompatActivity {
-    TextInputEditText editTextEmail, editTextPassword;
+    TextInputEditText editTextLogin, editTextPassword;
     Button buttonLogin;
-    FirebaseAuth mAuth;
+    //    FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textView;
 
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null && currentUser.isEmailVerified()) {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if (currentUser != null && currentUser.isEmailVerified()) {
+//            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mAuth = FirebaseAuth.getInstance();
-        editTextEmail = findViewById(R.id.email);
+//        mAuth = FirebaseAuth.getInstance();
+        editTextLogin = findViewById(R.id.loginName);
         editTextPassword = findViewById(R.id.password);
         buttonLogin = findViewById(R.id.btn_login);
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.registerNow);
+
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!validateUsername() | !validatePassword()) {
+
+                } else {
+                    checkUser();
+                }
+            }
+        });
 
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,50 +83,80 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
+    }
+
+    public Boolean validateUsername() {
+        String val = editTextLogin.getText().toString();
+        if (val.isEmpty()) {
+            editTextLogin.setError("Поле имени не может быть пустым");
+            return false;
+        } else {
+            editTextLogin.setError(null);
+            return true;
+        }
+    }
+
+    public Boolean validatePassword() {
+        String val = editTextPassword.getText().toString();
+        if (val.isEmpty()) {
+            editTextPassword.setError("Поле пароля не может быть пустым");
+            return false;
+        } else {
+            editTextPassword.setError(null);
+            return true;
+        }
+    }
+
+    public void checkUser() {
+        String userUserName = editTextLogin.getText().toString().trim();
+        String userPassword = hashPassword(editTextPassword.getText().toString().trim());
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference(Constant.USERS);
+        Query checkUserDB = reference.orderByChild("username").equalTo(userUserName);
+
+        checkUserDB.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                progressBar.setVisibility(View.VISIBLE);
-                String email, password;
-                email = String.valueOf(editTextEmail.getText());
-                password = String.valueOf(editTextPassword.getText());
-
-                // Проверка полей, что они не пустые
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(LoginActivity.this, "Введите почту", Toast.LENGTH_LONG).show();
-                    return;
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    editTextLogin.setError(null);
+                    String passwordFromDB = snapshot.child(userUserName).child("password").getValue(String.class);
+                    Toast.makeText(LoginActivity.this, snapshot.child(userUserName).child("password").getValue(String.class), Toast.LENGTH_SHORT).show();
+                    if (Objects.equals(passwordFromDB, userPassword)) {
+                        editTextLogin.setError(null);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        editTextPassword.setError("Invalid Credentials");
+                        editTextPassword.requestFocus(); // узнать что это
+                    }
+                } else {
+                    editTextLogin.setError("User does not exist");
+                    editTextPassword.requestFocus(); // узнать что это
                 }
+            }
 
-                if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(LoginActivity.this, "Введите пароль", Toast.LENGTH_LONG).show();
-                    return;
-                }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
-                                if (task.isSuccessful()) {
-                                    // Проверка подтверждена ли почта
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    if (user != null && user.isEmailVerified()) {
-                                        Toast.makeText(getApplicationContext(), "Вход выполнен успешно", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                        startActivity(intent);
-                                    } else if (user != null) {
-                                        // Аккаунт не подтвержден
-                                        Toast.makeText(LoginActivity.this, "Подтвердите вашу почту", Toast.LENGTH_SHORT).show();
-                                        mAuth.signOut(); // Разлогинить пользователя, чтобы предотвратить вход без подтверждения
-                                    }
-                                } else {
-                                    // Если вход не удался, показать сообщение об ошибке
-                                    Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
             }
         });
+    }
+
+    private String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes());
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

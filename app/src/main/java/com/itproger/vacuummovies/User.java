@@ -1,15 +1,16 @@
 package com.itproger.vacuummovies;
 
 public class User {
-    String email, username;
+    String email, username, password;
     boolean superUser;
 
     public User() {
     }
 
-    public User(String email, String username, boolean superUser) {
+    public User(String email, String username, String password, boolean superUser) {
         this.email = email;
         this.username = username;
+        this.password = password;
         this.superUser = superUser;
     }
 
@@ -40,5 +41,13 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

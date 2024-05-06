@@ -38,10 +38,10 @@
             android:textColorHint="@android:color/darker_gray">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/email"
+                android:id="@+id/loginName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/email"
+                android:hint="@string/loginName"
                 android:textColor="@color/white">
 
             </com.google.android.material.textfield.TextInputEditText>

@@ -1,0 +1,113 @@
+OLD REGISTER
+//        buttonReg.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                progressBar.setVisibility(View.VISIBLE);
+//                String email, password;
+//                email = String.valueOf(editTextEmail.getText());
+//                password = String.valueOf(editTextPassword.getText());
+//
+//                // Проверка полей, что они не пустые
+//                if (TextUtils.isEmpty(email)) {
+//                    Toast.makeText(RegisterActivity.this, "Введите почту", Toast.LENGTH_LONG).show();
+//                    return;
+//                }
+//
+//                if (TextUtils.isEmpty(password)) {
+//                    Toast.makeText(RegisterActivity.this, "Введите пароль", Toast.LENGTH_LONG).show();
+//                    return;
+//                }
+//
+//                mAuth.createUserWithEmailAndPassword(email, password)
+//                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<AuthResult> task) {
+//                                progressBar.setVisibility(View.GONE);
+//
+//                                if (task.isSuccessful()) {
+//
+//                                    FirebaseUser user = mAuth.getCurrentUser();
+//                                    if (user != null) {
+//                                        user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                            @Override
+//                                            public void onComplete(@NonNull Task<Void> emailtask) {
+//                                                if (emailtask.isSuccessful()) {
+//                                                    uploadUser();
+//                                                    // Письмо с подтверждением отправлено успешно
+//                                                    Toast.makeText(RegisterActivity.this,
+//                                                            "Аккаунт создан. Проверьте вашу почту для подтверждения.", Toast.LENGTH_LONG).show();
+//                                                } else {
+//                                                    // Ошибка отправки письма с подтверждением
+//                                                    Toast.makeText(RegisterActivity.this,
+//                                                            "Ошибка отправки письма с подтверждением", Toast.LENGTH_LONG).show();
+//
+//                                                }
+//                                            }
+//                                        });
+//                                    }
+//                                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+//                                    startActivity(intent);
+//                                    finish();
+//                                } else {
+//                                    // If sign in fails, display a message to the user.
+//                                    Toast.makeText(RegisterActivity.this, "Ошибка создания аккаунта",
+//                                            Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//                        });
+//
+//            }
+//        });
+//    }
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+
+OLD LOGIN
+//        buttonLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                progressBar.setVisibility(View.VISIBLE);
+//                String email, password;
+//                email = String.valueOf(editTextEmail.getText());
+//                password = String.valueOf(editTextPassword.getText());
+//
+//                // Проверка полей, что они не пустые
+//                if (TextUtils.isEmpty(email)) {
+//                    Toast.makeText(LoginActivity.this, "Введите почту", Toast.LENGTH_LONG).show();
+//                    return;
+//                }
+//
+//                if (TextUtils.isEmpty(password)) {
+//                    Toast.makeText(LoginActivity.this, "Введите пароль", Toast.LENGTH_LONG).show();
+//                    return;
+//                }
+//
+//                mAuth.signInWithEmailAndPassword(email, password)
+//                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<AuthResult> task) {
+//                                progressBar.setVisibility(View.GONE);
+//                                if (task.isSuccessful()) {
+//                                    // Проверка подтверждена ли почта
+//                                    FirebaseUser user = mAuth.getCurrentUser();
+//                                    if (user != null && user.isEmailVerified()) {
+//                                        Toast.makeText(getApplicationContext(), "Вход выполнен успешно", Toast.LENGTH_SHORT).show();
+//                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                                        startActivity(intent);
+//                                    } else if (user != null) {
+//                                        // Аккаунт не подтвержден
+//                                        Toast.makeText(LoginActivity.this, "Подтвердите вашу почту", Toast.LENGTH_SHORT).show();
+//                                        mAuth.signOut(); // Разлогинить пользователя, чтобы предотвратить вход без подтверждения
+//                                    }
+//                                } else {
+//                                    // Если вход не удался, показать сообщение об ошибке
+//                                    Toast.makeText(LoginActivity.this, "Authentication failed.",
+//                                            Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//                        });
+//            }
+//        });
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+

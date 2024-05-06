@@ -18,35 +18,42 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.itproger.vacuummovies.Constant;
 import com.itproger.vacuummovies.R;
 import com.itproger.vacuummovies.User;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class RegisterActivity extends AppCompatActivity {
     TextInputEditText editTextEmail, editTextPassword, editTextUsername;
     Button buttonReg;
-    FirebaseAuth mAuth;
+    //    FirebaseAuth mAuth;
     ProgressBar progressBar;
     TextView textView;
+    FirebaseDatabase database;
+    DatabaseReference reference;
 
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if (currentUser != null) {
+//            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mAuth = FirebaseAuth.getInstance();
+//        mAuth = FirebaseAuth.getInstance();
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
         editTextUsername = findViewById(R.id.username);
@@ -65,60 +72,13 @@ public class RegisterActivity extends AppCompatActivity {
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressBar.setVisibility(View.VISIBLE);
-                String email, password;
-                email = String.valueOf(editTextEmail.getText());
-                password = String.valueOf(editTextPassword.getText());
+                database = FirebaseDatabase.getInstance();
+                reference = database.getReference(Constant.USERS);
 
-                // Проверка полей, что они не пустые
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(RegisterActivity.this, "Введите почту", Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(RegisterActivity.this, "Введите пароль", Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
-
-                                if (task.isSuccessful()) {
-
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    if (user != null) {
-                                        user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> emailtask) {
-                                                if (emailtask.isSuccessful()) {
-                                                    uploadUser();
-                                                    // Письмо с подтверждением отправлено успешно
-                                                    Toast.makeText(RegisterActivity.this,
-                                                            "Аккаунт создан. Проверьте вашу почту для подтверждения.", Toast.LENGTH_LONG).show();
-                                                } else {
-                                                    // Ошибка отправки письма с подтверждением
-                                                    Toast.makeText(RegisterActivity.this,
-                                                            "Ошибка отправки письма с подтверждением", Toast.LENGTH_LONG).show();
-
-                                                }
-                                            }
-                                        });
-                                    }
-                                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(RegisterActivity.this, "Ошибка создания аккаунта",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-
+                uploadUser();
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -127,19 +87,33 @@ public class RegisterActivity extends AppCompatActivity {
         boolean superUser = false;
         String email = editTextEmail.getText().toString();
         String username = editTextUsername.getText().toString();
+        // Todo: добавить хэширование пароля
+//        String password = editTextPassword.getText().toString();
+        String password = hashPassword(editTextPassword.getText().toString());
 
         if (email.equals("nikita.golowanev@gmail.com")) {
             superUser = true;
         }
 
-        User user = new User(email, username, superUser);
-        FirebaseDatabase.getInstance().getReference("Users").child(username).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(RegisterActivity.this, "Пользователь добавлен", Toast.LENGTH_SHORT).show();
-                }
+        User user = new User(email, username, password, superUser);
+        reference.child(username).setValue(user);
+        Toast.makeText(RegisterActivity.this, "Пользователь добавлен", Toast.LENGTH_SHORT).show();
+    }
+
+    private String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes());
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
             }
-        });
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
