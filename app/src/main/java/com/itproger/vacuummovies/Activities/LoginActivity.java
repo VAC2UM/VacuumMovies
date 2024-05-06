@@ -119,7 +119,6 @@ public class LoginActivity extends AppCompatActivity {
                 if (snapshot.exists()) {
                     editTextLogin.setError(null);
                     String passwordFromDB = snapshot.child(userUserName).child("password").getValue(String.class);
-                    Toast.makeText(LoginActivity.this, snapshot.child(userUserName).child("password").getValue(String.class), Toast.LENGTH_SHORT).show();
                     if (Objects.equals(passwordFromDB, userPassword)) {
                         editTextLogin.setError(null);
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
