@@ -97,7 +97,6 @@ public class LoginActivity extends AppCompatActivity {
             return true;
         }
     }
-
     public void checkUser() {
         String userUserName = editTextLogin.getText().toString().trim();
         String userPassword = hashPassword(editTextPassword.getText().toString().trim());
