@@ -2,6 +2,7 @@ package com.itproger.vacuummovies.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -55,9 +56,6 @@ public class RegisterActivity extends AppCompatActivity {
                 reference = database.getReference(Constant.USERS);
 
                 uploadUser();
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
             }
         });
     }
@@ -66,15 +64,37 @@ public class RegisterActivity extends AppCompatActivity {
         boolean superUser = false;
         String email = editTextEmail.getText().toString();
         String username = editTextUsername.getText().toString();
-        String password = hashPassword(editTextPassword.getText().toString());
+        String password = editTextPassword.getText().toString();
 
         if (email.equals("nikita.golowanev@gmail.com")) {
             superUser = true;
         }
 
+
+        if (TextUtils.isEmpty(email)) {
+            editTextEmail.setError("Поле не может быть пустым");
+            editTextEmail.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(username)) {
+            editTextUsername.setError("Поле не может быть пустым");
+            editTextUsername.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(password)) {
+            editTextPassword.setError("Поле не может быть пустым");
+            editTextPassword.requestFocus();
+            return;
+        }
+
+        password = hashPassword(password);
         User user = new User(email, username, password, superUser);
         reference.child(username).setValue(user);
         Toast.makeText(RegisterActivity.this, "Пользователь добавлен", Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     // Хэширование пароля

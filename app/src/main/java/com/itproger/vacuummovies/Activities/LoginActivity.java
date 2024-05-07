@@ -128,12 +128,12 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } else {
-                        editTextPassword.setError("Invalid Credentials");
-                        editTextPassword.requestFocus(); // узнать что это
+                        editTextPassword.setError("Пароль неверный");
+                        editTextPassword.requestFocus();
                     }
                 } else {
-                    editTextLogin.setError("User does not exist");
-                    editTextPassword.requestFocus(); // узнать что это
+                    editTextLogin.setError("Пользователь не найден");
+                    editTextPassword.requestFocus();
                 }
             }
 
