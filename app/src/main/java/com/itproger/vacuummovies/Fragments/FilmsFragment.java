@@ -4,16 +4,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.itproger.vacuummovies.Adapter.MyAdapter;
@@ -22,20 +23,30 @@ import com.itproger.vacuummovies.Film;
 import com.itproger.vacuummovies.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FilmsFragment extends Fragment {
-
-    GridView gridView;
-    ArrayList<Film> filmsList;
-    FirebaseDatabase db;
-    SearchView searchView;
-
+    List<Film> filmList;
+    RecyclerView recyclerView;
+    DatabaseReference databaseReference;
+    ValueEventListener eventListener;
     AlertDialog.Builder builder;
     AlertDialog dialog;
+    SearchView searchView;
+    private MyAdapter adapter;
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_films, container, false);
+
+        recyclerView = rootView.findViewById(R.id.recyclerView);
+
+        int numColons = 3;
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), numColons);
+        recyclerView.setLayoutManager(gridLayoutManager);
 
         builder = new AlertDialog.Builder(getContext());
         builder.setCancelable(false);
@@ -43,42 +54,30 @@ public class FilmsFragment extends Fragment {
         dialog = builder.create();
         dialog.show();
 
-        gridView = rootView.findViewById(R.id.gridView);
+        filmList = new ArrayList<>();
+
+        adapter = new MyAdapter(getContext(), filmList);
+        recyclerView.setAdapter(adapter);
         searchView = rootView.findViewById(R.id.search);
+        searchView.clearFocus();
 
-        filmsList = new ArrayList<>();
+        databaseReference = FirebaseDatabase.getInstance().getReference(Constant.FILMS);
+        dialog.show();
 
-        db = FirebaseDatabase.getInstance();
-
-        loadDatainGridView();
-        return rootView;
-    }
-
-    private void loadDatainGridView() {
-        db.getReference(Constant.FILMS).addListenerForSingleValueEvent(new ValueEventListener() {
+        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Film film = snapshot.getValue(Film.class);
-                        filmsList.add(film);
-                    }
-                    MyAdapter adapter = new MyAdapter(getContext(), filmsList);
-                    gridView.setAdapter(adapter);
-
-                    // Закрываем диалоговое окно загрузки после установки адаптера
-                    dialog.dismiss();
-                } else {
-                    Toast.makeText(getContext(), "No data found in Database", Toast.LENGTH_SHORT).show();
-                    // В случае отсутствия данных также закрываем диалоговое окно
-                    dialog.dismiss();
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                filmList.clear();
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    Film film = itemSnapshot.getValue(Film.class);
+                    filmList.add(film);
                 }
+                adapter.notifyDataSetChanged();
+                dialog.dismiss();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), "Fail to load data..", Toast.LENGTH_SHORT).show();
-                // В случае ошибки также закрываем диалоговое окно
                 dialog.dismiss();
             }
         });
@@ -95,16 +94,16 @@ public class FilmsFragment extends Fragment {
                 return false;
             }
         });
+        return rootView;
     }
 
     public void searhList(String text) {
         ArrayList<Film> searchList = new ArrayList<>();
-        for (Film film : filmsList) {
+        for (Film film : filmList) {
             if(film.getName().toLowerCase().contains(text.toLowerCase())){
                 searchList.add(film);
             }
         }
-        MyAdapter adapter = new MyAdapter(getContext(), searchList);
-        gridView.setAdapter(adapter);
+        adapter.searhFilmList(searchList);
     }
 }
