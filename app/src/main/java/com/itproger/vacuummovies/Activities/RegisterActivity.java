@@ -66,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
         String username = editTextUsername.getText().toString();
         String password = editTextPassword.getText().toString();
 
-        if (email.equals("nikita.golowanev@gmail.com")) {
+        if (email.equals(Constant.ME)) {
             superUser = true;
         }
 
@@ -96,6 +96,11 @@ public class RegisterActivity extends AppCompatActivity {
         if (password.contains(" ")) {
             editTextPassword.setError("Пароль не может содержать пробелы");
             editTextPassword.requestFocus();
+            return;
+        }
+        if (username.contains(".")) {
+            editTextUsername.setError("Имя не должно содержать точки");
+            editTextUsername.requestFocus();
             return;
         }
 

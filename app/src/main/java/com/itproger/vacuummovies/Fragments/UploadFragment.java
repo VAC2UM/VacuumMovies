@@ -4,6 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -14,18 +21,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -35,7 +35,7 @@ import com.itproger.vacuummovies.R;
 
 public class UploadFragment extends Fragment {
     ImageView uploadImage;
-    EditText filmName, filmYear, filmDirector;
+    TextInputEditText filmName, filmYear, filmDirector;
     Button saveButton;
     String imageURL;
     Uri uri;
@@ -85,6 +85,26 @@ public class UploadFragment extends Fragment {
     }
 
     public void saveData() {
+        String name = filmName.getText().toString();
+        String year = filmYear.getText().toString();
+        String director = filmDirector.getText().toString();
+
+        if (TextUtils.isEmpty(name)) {
+            filmName.setError("Поле не может быть пустым");
+            filmName.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(year)) {
+            filmYear.setError("Поле не может быть пустым");
+            filmYear.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(director)) {
+            filmDirector.setError("Поле не может быть пустым");
+            filmDirector.requestFocus();
+            return;
+        }
+
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Android Images")
                 .child(uri.getLastPathSegment());
 
@@ -126,6 +146,7 @@ public class UploadFragment extends Fragment {
                 if (task.isSuccessful()) {
                     Toast.makeText(getContext(), "Фильм успешно добавлен", Toast.LENGTH_SHORT).show();
                     FilmsFragment filmsFragment = new FilmsFragment();
+
                     ((AppCompatActivity) getContext()).getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.frame_layout, filmsFragment)

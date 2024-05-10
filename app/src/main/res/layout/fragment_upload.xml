@@ -39,39 +39,54 @@
                 android:layout_marginTop="10dp"
                 android:src="@drawable/uploadimage" />
 
-            <EditText
-                android:id="@+id/film_name"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="20dp"
-                android:gravity="start|center_vertical"
-                android:hint="@string/film_name"
-                android:padding="16dp"
-                android:textColor="@color/white"
-                android:textColorHint="@color/grey" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
 
-            <EditText
-                android:id="@+id/film_year"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="20dp"
-                android:gravity="start|center_vertical"
-                android:hint="@string/film_date"
-                android:inputType="number"
-                android:padding="16dp"
-                android:textColor="@color/white"
-                android:textColorHint="@color/grey" />
+                android:textColorHint="@android:color/darker_gray">
 
-            <EditText
-                android:id="@+id/film_director"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/film_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/film_name"
+                    android:textColor="@color/white">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="20dp"
-                android:gravity="start|center_vertical"
-                android:hint="@string/film_director"
-                android:padding="16dp"
-                android:textColor="@color/white"
-                android:textColorHint="@color/grey" />
+                android:layout_height="wrap_content"
+
+                android:textColorHint="@android:color/darker_gray">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/film_year"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/film_date"
+                    android:textColor="@color/white">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:textColorHint="@android:color/darker_gray">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/film_director"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/film_director"
+                    android:textColor="@color/white">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
 
 
             <Button

@@ -87,7 +87,8 @@
             app:menu_fab_size="normal"
             app:menu_icon="@drawable/list_icon"
             app:menu_openDirection="up"
-            app:menu_showShadow="true">
+            app:menu_showShadow="true"
+            tools:ignore="MissingClass">
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/deleteButton"
