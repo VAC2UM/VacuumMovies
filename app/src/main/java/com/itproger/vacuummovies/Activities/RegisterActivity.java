@@ -87,6 +87,18 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
+        if (password.length() < 6 || password.length() > 20) {
+            editTextPassword.setError("Длина пароля должна быть от 6 до 20 символов");
+            editTextPassword.requestFocus();
+            return;
+        }
+        // Проверяем наличие пробела в пароле
+        if (password.contains(" ")) {
+            editTextPassword.setError("Пароль не может содержать пробелы");
+            editTextPassword.requestFocus();
+            return;
+        }
+
         password = hashPassword(password);
         User user = new User(email, username, password, superUser);
         reference.child(username).setValue(user);
