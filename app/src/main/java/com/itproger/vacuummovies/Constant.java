@@ -11,4 +11,5 @@ public class Constant {
     public final static String SUPERUSER = "superUser";
     public final static String EMAIL = "email";
     public final static String USERNAME = "username";
+    public final static String KEY = "Key";
 }

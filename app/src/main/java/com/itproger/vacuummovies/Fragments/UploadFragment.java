@@ -11,6 +11,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -38,6 +39,7 @@ public class UploadFragment extends Fragment {
     Button saveButton;
     String imageURL;
     Uri uri;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,7 +65,8 @@ public class UploadFragment extends Fragment {
                         }
                     }
                 }
-        );uploadImage.setOnClickListener(new View.OnClickListener() {
+        );
+        uploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent photoPicker = new Intent(Intent.ACTION_PICK);
@@ -80,6 +83,7 @@ public class UploadFragment extends Fragment {
 
         return rootView;
     }
+
     public void saveData() {
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Android Images")
                 .child(uri.getLastPathSegment());
@@ -121,6 +125,12 @@ public class UploadFragment extends Fragment {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(getContext(), "Фильм успешно добавлен", Toast.LENGTH_SHORT).show();
+                    FilmsFragment filmsFragment = new FilmsFragment();
+                    ((AppCompatActivity) getContext()).getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.frame_layout, filmsFragment)
+                            .addToBackStack(null)
+                            .commit();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {

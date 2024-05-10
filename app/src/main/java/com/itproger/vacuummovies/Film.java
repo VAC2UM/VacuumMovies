@@ -5,6 +5,7 @@ public class Film {
     private String year;
     private String director;
     private String dataImage;
+    private String key;
 
     public Film() {
     }
@@ -46,5 +47,13 @@ public class Film {
 
     public void setDataImage(String dataImage) {
         this.dataImage = dataImage;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

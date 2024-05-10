@@ -70,6 +70,7 @@ public class FilmsFragment extends Fragment {
                 filmList.clear();
                 for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
                     Film film = itemSnapshot.getValue(Film.class);
+                    film.setKey(itemSnapshot.getKey());
                     filmList.add(film);
                 }
                 adapter.notifyDataSetChanged();

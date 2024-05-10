@@ -54,5 +54,5 @@ dependencies {
     annotationProcessor("com.github.bumptech.glide:compiler:4.14.2")
     implementation("com.squareup.picasso:picasso:2.8")
     implementation("com.google.android.material:material:1.0.0")
-
+    implementation("com.github.clans:fab:1.6.4")
 }
