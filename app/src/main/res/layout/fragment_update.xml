@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_color"
-    tools:context=".Fragments.UploadFragment">
+    tools:context=".Fragments.UpdateFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -27,13 +27,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/add_film"
+                android:text="@string/update_film"
                 android:textAlignment="center"
                 android:textColor="@color/lavender"
                 android:textSize="30sp" />
 
             <ImageView
-                android:id="@+id/uploadImage"
+                android:id="@+id/update_image"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:layout_marginTop="10dp"
@@ -90,11 +90,11 @@
 
 
             <Button
-                android:id="@+id/save_film"
+                android:id="@+id/update_film"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="@string/add_film"
+                android:text="@string/update_film"
                 android:textColorHint="@color/white" />
 
         </LinearLayout>

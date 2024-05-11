@@ -33,6 +33,9 @@ import com.google.firebase.storage.UploadTask;
 import com.itproger.vacuummovies.Film;
 import com.itproger.vacuummovies.R;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+
 public class UploadFragment extends Fragment {
     ImageView uploadImage;
     TextInputEditText filmName, filmYear, filmDirector;
@@ -139,6 +142,8 @@ public class UploadFragment extends Fragment {
         String director = filmDirector.getText().toString();
 
         Film film = new Film(name, year, director, imageURL);
+
+        String currentFilm = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
 
         FirebaseDatabase.getInstance().getReference("Films").child(name).setValue(film).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

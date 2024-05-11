@@ -37,8 +37,8 @@ android {
 }
 
 dependencies {
-    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
-    implementation("com.google.firebase:firebase-firestore")
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -50,9 +50,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation("com.github.bumptech.glide:glide:4.14.2")
-    annotationProcessor("com.github.bumptech.glide:compiler:4.14.2")
-    implementation("com.squareup.picasso:picasso:2.8")
-    implementation("com.google.android.material:material:1.0.0")
-    implementation("com.github.clans:fab:1.6.4")
+    implementation(libs.glide)
+    annotationProcessor(libs.compiler)
+    implementation(libs.picasso)
+    implementation(libs.material.v100)
+    implementation(libs.fab)
 }

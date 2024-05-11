@@ -29,7 +29,7 @@ import com.itproger.vacuummovies.R;
 public class FilmDetailFragment extends Fragment {
     TextView filmName, directorTextView, yearTextView;
     ImageView detailImage;
-    FloatingActionButton deleteBtn;
+    FloatingActionButton deleteBtn, editBtn;
     String key = "";
     String imageUrl = "";
 
@@ -43,6 +43,7 @@ public class FilmDetailFragment extends Fragment {
         yearTextView = rootView.findViewById(R.id.detailYear);
         detailImage = rootView.findViewById(R.id.detailImage);
         deleteBtn = rootView.findViewById(R.id.deleteButton);
+        editBtn = rootView.findViewById(R.id.editButton);
 
         // Получаем данные о фильме из Bundle
         Bundle bundle = getArguments();
@@ -74,6 +75,26 @@ public class FilmDetailFragment extends Fragment {
                                 .commit();
                     }
                 });
+            }
+        });
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UpdateFragment updateFragment = new UpdateFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putString(Constant.NAME, filmName.getText().toString());
+                bundle.putString(Constant.DATAIMAGE, imageUrl);
+                bundle.putString(Constant.YEAR, yearTextView.getText().toString());
+                bundle.putString(Constant.DIRECTOR, directorTextView.getText().toString());
+                bundle.putString(Constant.KEY, key);
+                updateFragment.setArguments(bundle);
+
+                ((AppCompatActivity) getContext()).getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frame_layout, updateFragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 

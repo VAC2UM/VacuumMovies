@@ -91,6 +91,15 @@
             tools:ignore="MissingClass">
 
             <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/editButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/edit_icon"
+                app:fab_colorNormal="@color/green"
+                app:fab_showShadow="true"
+                app:fab_size="mini" />
+
+            <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/deleteButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
