@@ -56,6 +56,7 @@ public class FilmsFragment extends Fragment {
 
         filmList = new ArrayList<>();
 
+        // TODO: попробовать создать другой адаптер в зависимости от роли пользователя
         adapter = new MyAdapter(getContext(), filmList);
         recyclerView.setAdapter(adapter);
         searchView = rootView.findViewById(R.id.search);

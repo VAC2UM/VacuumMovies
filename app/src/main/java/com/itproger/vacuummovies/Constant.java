@@ -13,5 +13,6 @@ public class Constant {
     public final static String USERNAME = "username";
     public final static String KEY = "Key";
     public final static String ME = "nikita.golowanev@gmail.com";
+    public final static String DESCRIPTION = "description";
 
 }

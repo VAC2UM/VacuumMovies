@@ -69,11 +69,25 @@
             android:layout_marginTop="14dp"
             android:scaleType="fitXY"
             android:src="@drawable/uploadimage" />
+
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/detailDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="17dp"
+            android:text="@string/film_description"
+            android:textColor="@color/lavender"
+            android:textSize="18sp">
+
+        </TextView>
 
         <com.github.clans.fab.FloatingActionMenu
             android:layout_width="wrap_content"

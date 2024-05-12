@@ -38,7 +38,7 @@ import java.util.Calendar;
 
 public class UploadFragment extends Fragment {
     ImageView uploadImage;
-    TextInputEditText filmName, filmYear, filmDirector;
+    TextInputEditText filmName, filmYear, filmDirector, filmDescription;
     Button saveButton;
     String imageURL;
     Uri uri;
@@ -52,6 +52,7 @@ public class UploadFragment extends Fragment {
         filmName = rootView.findViewById(R.id.film_name);
         filmYear = rootView.findViewById(R.id.film_year);
         filmDirector = rootView.findViewById(R.id.film_director);
+        filmDescription = rootView.findViewById(R.id.film_description);
         saveButton = rootView.findViewById(R.id.save_film);
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
@@ -91,6 +92,7 @@ public class UploadFragment extends Fragment {
         String name = filmName.getText().toString();
         String year = filmYear.getText().toString();
         String director = filmDirector.getText().toString();
+        String description = filmDescription.getText().toString();
 
         if (TextUtils.isEmpty(name)) {
             filmName.setError("Поле не может быть пустым");
@@ -107,6 +109,11 @@ public class UploadFragment extends Fragment {
             filmDirector.requestFocus();
             return;
         }
+        if (TextUtils.isEmpty(description)) {
+            filmDirector.setError("Поле не может быть пустым");
+            filmDirector.requestFocus();
+            return;
+        }
 
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Android Images")
                 .child(uri.getLastPathSegment());
@@ -116,7 +123,6 @@ public class UploadFragment extends Fragment {
         builder.setView(R.layout.saving_layout);
         AlertDialog dialog = builder.create();
         dialog.show();
-
 
         storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -140,10 +146,9 @@ public class UploadFragment extends Fragment {
         String name = filmName.getText().toString();
         String year = filmYear.getText().toString();
         String director = filmDirector.getText().toString();
+        String description = filmDescription.getText().toString();
 
-        Film film = new Film(name, year, director, imageURL);
-
-        String currentFilm = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
+        Film film = new Film(name, year, director, imageURL, description);
 
         FirebaseDatabase.getInstance().getReference("Films").child(name).setValue(film).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

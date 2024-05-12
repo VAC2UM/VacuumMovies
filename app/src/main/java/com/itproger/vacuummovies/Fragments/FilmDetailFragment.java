@@ -27,7 +27,7 @@ import com.itproger.vacuummovies.Film;
 import com.itproger.vacuummovies.R;
 
 public class FilmDetailFragment extends Fragment {
-    TextView filmName, directorTextView, yearTextView;
+    TextView filmName, directorTextView, yearTextView, descriptionTextView;
     ImageView detailImage;
     FloatingActionButton deleteBtn, editBtn;
     String key = "";
@@ -41,6 +41,7 @@ public class FilmDetailFragment extends Fragment {
         filmName = rootView.findViewById(R.id.detailTitle);
         directorTextView = rootView.findViewById(R.id.detailDirector);
         yearTextView = rootView.findViewById(R.id.detailYear);
+        descriptionTextView = rootView.findViewById(R.id.detailDescription);
         detailImage = rootView.findViewById(R.id.detailImage);
         deleteBtn = rootView.findViewById(R.id.deleteButton);
         editBtn = rootView.findViewById(R.id.editButton);
@@ -87,6 +88,7 @@ public class FilmDetailFragment extends Fragment {
                 bundle.putString(Constant.DATAIMAGE, imageUrl);
                 bundle.putString(Constant.YEAR, yearTextView.getText().toString());
                 bundle.putString(Constant.DIRECTOR, directorTextView.getText().toString());
+                bundle.putString(Constant.DESCRIPTION, descriptionTextView.getText().toString());
                 bundle.putString(Constant.KEY, key);
                 updateFragment.setArguments(bundle);
 
@@ -114,6 +116,7 @@ public class FilmDetailFragment extends Fragment {
                     filmName.setText(film.getName());
                     directorTextView.setText(film.getDirector());
                     yearTextView.setText(film.getYear());
+                    descriptionTextView.setText(film.getDescription());
                 }
             }
 

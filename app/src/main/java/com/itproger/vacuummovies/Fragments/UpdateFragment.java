@@ -36,11 +36,14 @@ import com.itproger.vacuummovies.Constant;
 import com.itproger.vacuummovies.Film;
 import com.itproger.vacuummovies.R;
 
+import java.util.Objects;
+
 public class UpdateFragment extends Fragment {
     ImageView updateImage;
     Button updateButton;
-    TextInputEditText updateFilmName, updateFilmYear, updateFilmDirector;
-    String name, year, director;
+    TextInputEditText updateFilmName, updateFilmYear, updateFilmDirector, updateFilmDescription;
+    String name, year, director, description;
+    String oldName;
     String imageURL;
     String key, oldImageURL;
     Uri uri;
@@ -58,6 +61,7 @@ public class UpdateFragment extends Fragment {
         updateImage = rootView.findViewById(R.id.update_image);
         updateFilmYear = rootView.findViewById(R.id.film_year);
         updateFilmDirector = rootView.findViewById(R.id.film_director);
+        updateFilmDescription = rootView.findViewById(R.id.film_description);
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -78,8 +82,10 @@ public class UpdateFragment extends Fragment {
         if (bundle != null) {
             Glide.with(getContext()).load(bundle.getString(Constant.DATAIMAGE)).into(updateImage);
             updateFilmName.setText(bundle.getString(Constant.NAME));
+            oldName = bundle.getString(Constant.NAME);
             updateFilmYear.setText(bundle.getString(Constant.YEAR));
             updateFilmDirector.setText(bundle.getString(Constant.DIRECTOR));
+            updateFilmDescription.setText(bundle.getString(Constant.DESCRIPTION));
             key = bundle.getString(Constant.KEY);
             oldImageURL = bundle.getString(Constant.DATAIMAGE);
         }
@@ -129,7 +135,7 @@ public class UpdateFragment extends Fragment {
                 }
             });
         } else {
-            Toast.makeText(getContext(), "Выберите изображение", Toast.LENGTH_SHORT).show();
+            updateDataWithoutImage();
         }
     }
 
@@ -138,8 +144,9 @@ public class UpdateFragment extends Fragment {
         name = updateFilmName.getText().toString();
         year = updateFilmYear.getText().toString().trim();
         director = updateFilmDirector.getText().toString();
+        description = updateFilmDescription.getText().toString();
 
-        Film film = new Film(name, year, director, imageURL);
+        Film film = new Film(name, year, director, imageURL, description);
 
         databaseReference.setValue(film).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -148,6 +155,45 @@ public class UpdateFragment extends Fragment {
                     StorageReference reference = FirebaseStorage.getInstance().getReferenceFromUrl(oldImageURL);
                     reference.delete();
                     Toast.makeText(getContext(), "Обновлен", Toast.LENGTH_SHORT).show();
+
+                    FilmsFragment filmsFragment = new FilmsFragment();
+
+                    ((AppCompatActivity) getContext()).getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.frame_layout, filmsFragment)
+                            .addToBackStack(null)
+                            .commit();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void updateDataWithoutImage() {
+//        name = updateFilmName.getText().toString();
+        final String newName = updateFilmName.getText().toString();
+        name = newName;
+        year = updateFilmYear.getText().toString().trim();
+        director = updateFilmDirector.getText().toString();
+        description = updateFilmDescription.getText().toString();
+
+        Film film = new Film(name, year, director, oldImageURL, description);
+
+        databaseReference.setValue(film).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    if (!Objects.equals(oldName, newName)) {
+                        // Если изменилось, обновляем ключ узла
+                        databaseReference.getParent().child(newName).setValue(film);
+                        // Удаляем старый узел
+                        databaseReference.getParent().child(oldName).removeValue();
+                    }
+                    Toast.makeText(getContext(), "Обновлено", Toast.LENGTH_SHORT).show();
 
                     FilmsFragment filmsFragment = new FilmsFragment();
 

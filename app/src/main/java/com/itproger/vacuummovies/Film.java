@@ -6,15 +6,17 @@ public class Film {
     private String director;
     private String dataImage;
     private String key;
+    private String description;
 
     public Film() {
     }
 
-    public Film(String name, String year, String director, String dataImage) {
+    public Film(String name, String year, String director, String dataImage, String description) {
         this.name = name;
         this.year = year;
         this.director = director;
         this.dataImage = dataImage;
+        this.description = description;
     }
 
     public String getName() {
@@ -55,5 +57,13 @@ public class Film {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

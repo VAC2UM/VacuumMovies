@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,7 +27,6 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText editTextLogin, editTextPassword;
     Button buttonLogin;
     //    FirebaseAuth mAuth;
-    ProgressBar progressBar;
     TextView textView;
 
 
@@ -52,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
         editTextLogin = findViewById(R.id.loginName);
         editTextPassword = findViewById(R.id.password);
         buttonLogin = findViewById(R.id.btn_login);
-        progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.registerNow);
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
