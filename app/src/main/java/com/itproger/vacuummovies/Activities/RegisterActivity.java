@@ -70,7 +70,6 @@ public class RegisterActivity extends AppCompatActivity {
             superUser = true;
         }
 
-
         if (TextUtils.isEmpty(email)) {
             editTextEmail.setError("Поле не может быть пустым");
             editTextEmail.requestFocus();
@@ -98,9 +97,14 @@ public class RegisterActivity extends AppCompatActivity {
             editTextPassword.requestFocus();
             return;
         }
-        if (username.contains(".")) {
-            editTextUsername.setError("Имя не должно содержать точки");
+        if (username.contains(".") || username.contains("\n")) {
+            editTextUsername.setError("Поле имеет запрещенный символ ('\\n', '.')");
             editTextUsername.requestFocus();
+            return;
+        }
+        if (email.contains("\n")) {
+            editTextEmail.setError("Поле имеет запрещенный символ ('\\n')");
+            editTextEmail.requestFocus();
             return;
         }
 

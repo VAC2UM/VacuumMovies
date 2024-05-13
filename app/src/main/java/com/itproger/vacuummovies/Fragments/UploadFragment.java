@@ -114,6 +114,21 @@ public class UploadFragment extends Fragment {
             filmDirector.requestFocus();
             return;
         }
+        if (name.contains("\n")) {
+            filmName.setError("Поле имеет запрещенный символ ('\\n')");
+            filmName.requestFocus();
+            return;
+        }
+        if (year.contains("\n")) {
+            filmYear.setError("Поле имеет запрещенный символ ('\\n')");
+            filmYear.requestFocus();
+            return;
+        }
+        if (director.contains("\n")) {
+            filmDirector.setError("Поле имеет запрещенный символ ('\\n')");
+            filmDirector.requestFocus();
+            return;
+        }
 
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Android Images")
                 .child(uri.getLastPathSegment());

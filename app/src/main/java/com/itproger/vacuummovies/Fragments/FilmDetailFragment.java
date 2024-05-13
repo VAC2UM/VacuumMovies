@@ -1,5 +1,7 @@
 package com.itproger.vacuummovies.Fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +13,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 
 import com.bumptech.glide.Glide;
 import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,12 +30,16 @@ import com.itproger.vacuummovies.Constant;
 import com.itproger.vacuummovies.Film;
 import com.itproger.vacuummovies.R;
 
+import java.util.Objects;
+
 public class FilmDetailFragment extends Fragment {
     TextView filmName, directorTextView, yearTextView, descriptionTextView;
     ImageView detailImage;
     FloatingActionButton deleteBtn, editBtn;
+    FloatingActionMenu floatList;
     String key = "";
     String imageUrl = "";
+    SharedPreferences sharedPref;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,8 +51,18 @@ public class FilmDetailFragment extends Fragment {
         yearTextView = rootView.findViewById(R.id.detailYear);
         descriptionTextView = rootView.findViewById(R.id.detailDescription);
         detailImage = rootView.findViewById(R.id.detailImage);
+        floatList = rootView.findViewById(R.id.floating_menu);
         deleteBtn = rootView.findViewById(R.id.deleteButton);
         editBtn = rootView.findViewById(R.id.editButton);
+
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(requireContext());
+        boolean isSuperUser = sharedPref.getBoolean(getString(R.string.saved_super_user_key), false);
+
+        if (isSuperUser) {
+            floatList.setVisibility(View.VISIBLE);
+        } else {
+            floatList.setVisibility(View.GONE);
+        }
 
         // Получаем данные о фильме из Bundle
         Bundle bundle = getArguments();
@@ -55,6 +73,7 @@ public class FilmDetailFragment extends Fragment {
             Glide.with(getContext()).load(bundle.getString(Constant.DATAIMAGE)).into(detailImage);
             loadFilmData(fName);
         }
+
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

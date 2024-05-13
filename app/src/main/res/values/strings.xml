@@ -21,7 +21,8 @@
     <string name="film_director">Режиссер</string>
     <string name="films">Фильмы</string>
 
-
+    <string name="saved_super_user_key">is_super_user</string>
+    
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
