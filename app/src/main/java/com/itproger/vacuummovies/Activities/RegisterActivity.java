@@ -114,8 +114,9 @@ public class RegisterActivity extends AppCompatActivity {
             editTextPassword.requestFocus();
             return;
         }
-        if (username.contains(".") || username.contains("\n")) {
-            editTextUsername.setError("Поле имеет запрещенный символ ('\\n', '.')");
+        if (username.contains("\n") || username.contains(".") || username.contains("$") || username.contains("[")
+                || username.contains("]") || username.contains("#") || username.contains("%") || username.contains("\\") || username.contains("/")) {
+            editTextUsername.setError("Поле содержит запрещенные символы: '.', '$', '[', ']', '#', '%', '\\', '/', '\\n'");
             editTextUsername.requestFocus();
             return;
         }
@@ -195,9 +196,9 @@ public class RegisterActivity extends AppCompatActivity {
             return null;
         }
     }
+
     private boolean isValidEmail(String email) {
         String emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
-
         return email.matches(emailPattern);
     }
 }
