@@ -2,6 +2,7 @@ package com.itproger.vacuummovies.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -51,6 +52,9 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.password);
         buttonLogin = findViewById(R.id.btn_login);
         textView = findViewById(R.id.registerNow);
+
+        editTextLogin.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
+        editTextPassword.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,13 +128,14 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } else {
-                        editTextPassword.setError("Пароль неверный");
+                        editTextPassword.setError("Указан неверный логин/пароль");
                         editTextPassword.requestFocus();
                     }
-                } else {
-                    editTextLogin.setError("Пользователь не найден");
-                    editTextPassword.requestFocus();
                 }
+//                else {
+//                    editTextLogin.setError("Пользователь не найден");
+//                    editTextPassword.requestFocus();
+//                }
             }
 
             @Override

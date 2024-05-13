@@ -2,6 +2,7 @@ package com.itproger.vacuummovies.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -45,6 +46,11 @@ public class RegisterActivity extends AppCompatActivity {
         buttonReg = findViewById(R.id.btn_register);
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.loginNow);
+
+        editTextUsername.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
+        editTextEmail.setFilters(new InputFilter[]{new InputFilter.LengthFilter(256)});
+        editTextPassword.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
+
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,6 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void uploadUser() {
         boolean superUser = false;
@@ -90,11 +97,17 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        if (password.length() < 6 || password.length() > 20) {
-            editTextPassword.setError("Длина пароля должна быть от 6 до 20 символов");
+        if (username.length() < 6) {
+            editTextUsername.setError("Длина имени должна быть не менее 6 символов");
+            editTextUsername.requestFocus();
+            return;
+        }
+        if (password.length() < 6) {
+            editTextPassword.setError("Длина пароля должна быть не менее 6 символов");
             editTextPassword.requestFocus();
             return;
         }
+
         // Проверяем наличие пробела в пароле
         if (password.contains(" ")) {
             editTextPassword.setError("Пароль не может содержать пробелы");
@@ -111,6 +124,12 @@ public class RegisterActivity extends AppCompatActivity {
             editTextEmail.requestFocus();
             return;
         }
+        if (!isValidEmail(email)) {
+            editTextEmail.setError("Неверный формат адреса электронной почты");
+            editTextEmail.requestFocus();
+            return;
+        }
+
 
         password = hashPassword(password);
 
@@ -129,9 +148,9 @@ public class RegisterActivity extends AppCompatActivity {
                     checkUserEmail.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(snapshot.exists()){
+                            if (snapshot.exists()) {
                                 editTextEmail.setError("Пользователь с такой почтой уже существует");
-                            }else{
+                            } else {
 
                                 reference.child(username).setValue(user);
                                 Toast.makeText(RegisterActivity.this, "Пользователь добавлен", Toast.LENGTH_SHORT).show();
@@ -175,5 +194,10 @@ public class RegisterActivity extends AppCompatActivity {
             e.printStackTrace();
             return null;
         }
+    }
+    private boolean isValidEmail(String email) {
+        String emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
+
+        return email.matches(emailPattern);
     }
 }
