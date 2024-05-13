@@ -9,11 +9,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.itproger.vacuummovies.Constant;
 import com.itproger.vacuummovies.R;
 import com.itproger.vacuummovies.User;
@@ -69,7 +74,6 @@ public class RegisterActivity extends AppCompatActivity {
         if (email.equals(Constant.ME)) {
             superUser = true;
         }
-
         if (TextUtils.isEmpty(email)) {
             editTextEmail.setError("Поле не может быть пустым");
             editTextEmail.requestFocus();
@@ -102,20 +106,57 @@ public class RegisterActivity extends AppCompatActivity {
             editTextUsername.requestFocus();
             return;
         }
-        if (email.contains("\n")) {
-            editTextEmail.setError("Поле имеет запрещенный символ ('\\n')");
+        if (email.contains("\n") || email.contains(" ")) {
+            editTextEmail.setError("Поле имеет запрещенный символ ('\\n', '␣')");
             editTextEmail.requestFocus();
             return;
         }
 
         password = hashPassword(password);
-        User user = new User(email, username, password, superUser);
-        reference.child(username).setValue(user);
-        Toast.makeText(RegisterActivity.this, "Пользователь добавлен", Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
+        reference = FirebaseDatabase.getInstance().getReference(Constant.USERS);
+        Query checkUserDB = reference.orderByChild(Constant.USERNAME).equalTo(username);
+
+        User user = new User(email, username, password, superUser);
+        checkUserDB.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    editTextUsername.setError("Пользователь уже существует");
+                } else {
+                    Query checkUserEmail = reference.orderByChild(Constant.EMAIL).equalTo(email);
+
+                    checkUserEmail.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.exists()){
+                                editTextEmail.setError("Пользователь с такой почтой уже существует");
+                            }else{
+
+                                reference.child(username).setValue(user);
+                                Toast.makeText(RegisterActivity.this, "Пользователь добавлен", Toast.LENGTH_SHORT).show();
+
+                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     // Хэширование пароля

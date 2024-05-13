@@ -23,15 +23,12 @@ import com.itproger.vacuummovies.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    //    Использование binding в Android дает доступ к представлениям (views) макета (layout) напрямую
+//    Использование binding в Android дает доступ к представлениям (views) макета (layout) напрямую
 //    из кода без необходимости вызова метода findViewById().
 //    Он упрощает работу с представлениями и делает код более чистым и лаконичным.
     ActivityMainBinding binding;
-    boolean isSup;
-
     FirebaseDatabase db;
     SharedPreferences sharedPref;
-
 
 
     @Override

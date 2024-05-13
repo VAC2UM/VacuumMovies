@@ -26,10 +26,16 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.itproger.vacuummovies.Constant;
 import com.itproger.vacuummovies.Film;
 import com.itproger.vacuummovies.R;
 
@@ -163,27 +169,45 @@ public class UploadFragment extends Fragment {
         String director = filmDirector.getText().toString();
         String description = filmDescription.getText().toString();
 
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference(Constant.FILMS);
+        Query checkFilmDB = reference.orderByChild(Constant.NAME).equalTo(name);
+
         Film film = new Film(name, year, director, imageURL, description);
 
-        FirebaseDatabase.getInstance().getReference("Films").child(name).setValue(film).addOnCompleteListener(new OnCompleteListener<Void>() {
+        checkFilmDB.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(getContext(), "Фильм успешно добавлен", Toast.LENGTH_SHORT).show();
-                    FilmsFragment filmsFragment = new FilmsFragment();
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    filmName.setError("Фильм уже существует");
+                } else {
+                    FirebaseDatabase.getInstance().getReference("Films").child(name).setValue(film).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getContext(), "Фильм успешно добавлен", Toast.LENGTH_SHORT).show();
+                                FilmsFragment filmsFragment = new FilmsFragment();
 
-                    ((AppCompatActivity) getContext()).getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.frame_layout, filmsFragment)
-                            .addToBackStack(null)
-                            .commit();
+                                ((AppCompatActivity) getContext()).getSupportFragmentManager()
+                                        .beginTransaction()
+                                        .replace(R.id.frame_layout, filmsFragment)
+                                        .addToBackStack(null)
+                                        .commit();
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getContext(), e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
-        }).addOnFailureListener(new OnFailureListener() {
+
             @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(), e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
+
     }
 }
