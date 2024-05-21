@@ -27,27 +27,13 @@ import java.security.NoSuchAlgorithmException;
 public class LoginActivity extends AppCompatActivity {
     TextInputEditText editTextLogin, editTextPassword;
     Button buttonLogin;
-    //    FirebaseAuth mAuth;
     TextView textView;
-
-
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if (currentUser != null && currentUser.isEmailVerified()) {
-//            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-//        mAuth = FirebaseAuth.getInstance();
         editTextLogin = findViewById(R.id.loginName);
         editTextPassword = findViewById(R.id.password);
         buttonLogin = findViewById(R.id.btn_login);
@@ -98,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
             return true;
         }
     }
+
     public void checkUser() {
         String userUserName = editTextLogin.getText().toString().trim();
         String userPassword = hashPassword(editTextPassword.getText().toString().trim());
@@ -131,11 +118,10 @@ public class LoginActivity extends AppCompatActivity {
                         editTextPassword.setError("Указан неверный логин/пароль");
                         editTextPassword.requestFocus();
                     }
+                } else {
+                    editTextLogin.setError("Пользователь не найден");
+                    editTextPassword.requestFocus();
                 }
-//                else {
-//                    editTextLogin.setError("Пользователь не найден");
-//                    editTextPassword.requestFocus();
-//                }
             }
 
             @Override

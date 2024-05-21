@@ -1,7 +1,8 @@
 package com.itproger.vacuummovies.Fragments;
 
-import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,15 +31,14 @@ import com.itproger.vacuummovies.Constant;
 import com.itproger.vacuummovies.Film;
 import com.itproger.vacuummovies.R;
 
-import java.util.Objects;
-
 public class FilmDetailFragment extends Fragment {
     TextView filmName, directorTextView, yearTextView, descriptionTextView;
-    ImageView detailImage;
+    ImageView detailImage, youtubeIcon;
     FloatingActionButton deleteBtn, editBtn;
     FloatingActionMenu floatList;
     String key = "";
     String imageUrl = "";
+    String trailer;
     SharedPreferences sharedPref;
 
     @Override
@@ -51,6 +51,7 @@ public class FilmDetailFragment extends Fragment {
         yearTextView = rootView.findViewById(R.id.detailYear);
         descriptionTextView = rootView.findViewById(R.id.detailDescription);
         detailImage = rootView.findViewById(R.id.detailImage);
+        youtubeIcon = rootView.findViewById(R.id.youtubeButton);
         floatList = rootView.findViewById(R.id.floating_menu);
         deleteBtn = rootView.findViewById(R.id.deleteButton);
         editBtn = rootView.findViewById(R.id.editButton);
@@ -70,6 +71,7 @@ public class FilmDetailFragment extends Fragment {
             String fName = bundle.getString(Constant.NAME);
             key = bundle.getString(Constant.KEY);
             imageUrl = bundle.getString(Constant.DATAIMAGE);
+            trailer = bundle.getString(Constant.TRAILERLINK);
             Glide.with(getContext()).load(bundle.getString(Constant.DATAIMAGE)).into(detailImage);
             loadFilmData(fName);
         }
@@ -108,6 +110,7 @@ public class FilmDetailFragment extends Fragment {
                 bundle.putString(Constant.YEAR, yearTextView.getText().toString());
                 bundle.putString(Constant.DIRECTOR, directorTextView.getText().toString());
                 bundle.putString(Constant.DESCRIPTION, descriptionTextView.getText().toString());
+                bundle.putString(Constant.TRAILERLINK, trailer);
                 bundle.putString(Constant.KEY, key);
                 updateFragment.setArguments(bundle);
 
@@ -118,8 +121,22 @@ public class FilmDetailFragment extends Fragment {
                         .commit();
             }
         });
+        youtubeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (trailer != null && !trailer.isEmpty()) {
+                    goToURL(trailer);
+                } else {
+                    Toast.makeText(getContext(), "Трейлера еще нет", Toast.LENGTH_SHORT).show();
+                }            }
+        });
 
         return rootView;
+    }
+
+    private void goToURL(String link) {
+        Uri uri = Uri.parse(link);
+        startActivity(new Intent(Intent.ACTION_VIEW, uri));
     }
 
     private void loadFilmData(String name) {

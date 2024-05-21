@@ -42,4 +42,5 @@
     <string name="loading">Загрузка...</string>
     <string name="loginName">Логин</string>
     <string name="film_description">Описание</string>
+    <string name="trailerLink">Ссылка на трейлер</string>
 </resources>

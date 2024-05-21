@@ -14,6 +14,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.text.InputFilter;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,8 +43,8 @@ import java.util.Objects;
 public class UpdateFragment extends Fragment {
     ImageView updateImage;
     Button updateButton;
-    TextInputEditText updateFilmName, updateFilmYear, updateFilmDirector, updateFilmDescription;
-    String name, year, director, description;
+    TextInputEditText updateFilmName, updateFilmYear, updateFilmDirector, updateFilmDescription, updateLink;
+    String name, year, director, description, trailer;
     String oldName;
     String imageURL;
     String key, oldImageURL;
@@ -62,6 +64,13 @@ public class UpdateFragment extends Fragment {
         updateFilmYear = rootView.findViewById(R.id.film_year);
         updateFilmDirector = rootView.findViewById(R.id.film_director);
         updateFilmDescription = rootView.findViewById(R.id.film_description);
+        updateLink = rootView.findViewById(R.id.film_trailerLink);
+
+        updateFilmName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
+        updateFilmYear.setFilters(new InputFilter[]{new InputFilter.LengthFilter(4)});
+        updateFilmDirector.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
+        updateFilmDescription.setFilters(new InputFilter[]{new InputFilter.LengthFilter(1000)});
+        updateLink.setFilters(new InputFilter[]{new InputFilter.LengthFilter(150)});
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -86,6 +95,7 @@ public class UpdateFragment extends Fragment {
             updateFilmYear.setText(bundle.getString(Constant.YEAR));
             updateFilmDirector.setText(bundle.getString(Constant.DIRECTOR));
             updateFilmDescription.setText(bundle.getString(Constant.DESCRIPTION));
+            updateLink.setText(bundle.getString(Constant.TRAILERLINK));
             key = bundle.getString(Constant.KEY);
             oldImageURL = bundle.getString(Constant.DATAIMAGE);
         }
@@ -139,14 +149,60 @@ public class UpdateFragment extends Fragment {
         }
     }
 
-
     public void updateData() {
         name = updateFilmName.getText().toString();
         year = updateFilmYear.getText().toString().trim();
         director = updateFilmDirector.getText().toString();
         description = updateFilmDescription.getText().toString();
+        trailer = updateLink.getText().toString();
 
-        Film film = new Film(name, year, director, imageURL, description);
+        if (TextUtils.isEmpty(name)) {
+            updateFilmName.setError("Поле не может быть пустым");
+            updateFilmName.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(year)) {
+            updateFilmYear.setError("Поле не может быть пустым");
+            updateFilmYear.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(director)) {
+            updateFilmDirector.setError("Поле не может быть пустым");
+            updateFilmDirector.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(description)) {
+            updateFilmDescription.setError("Поле не может быть пустым");
+            updateFilmDescription.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(trailer)) {
+            updateLink.setError("Поле не может быть пустым");
+            updateLink.requestFocus();
+            return;
+        }
+        if (name.contains("\n")) {
+            updateFilmName.setError("Поле имеет запрещенный символ ('\\n')");
+            updateFilmName.requestFocus();
+            return;
+        }
+        if (year.contains("\n")) {
+            updateFilmYear.setError("Поле имеет запрещенный символ ('\\n')");
+            updateFilmYear.requestFocus();
+            return;
+        }
+        if (director.contains("\n")) {
+            updateFilmDirector.setError("Поле имеет запрещенный символ ('\\n')");
+            updateFilmDirector.requestFocus();
+            return;
+        }
+        if (trailer.contains("\n")) {
+            updateLink.setError("Поле имеет запрещенный символ ('\\n')");
+            updateLink.requestFocus();
+            return;
+        }
+
+        Film film = new Film(name, year, director, imageURL, description, trailer);
 
         databaseReference.setValue(film).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -174,14 +230,59 @@ public class UpdateFragment extends Fragment {
     }
 
     public void updateDataWithoutImage() {
-//        name = updateFilmName.getText().toString();
         final String newName = updateFilmName.getText().toString();
         name = newName;
         year = updateFilmYear.getText().toString().trim();
         director = updateFilmDirector.getText().toString();
         description = updateFilmDescription.getText().toString();
+        trailer = updateLink.getText().toString();
 
-        Film film = new Film(name, year, director, oldImageURL, description);
+        if (TextUtils.isEmpty(name)) {
+            updateFilmName.setError("Поле не может быть пустым");
+            updateFilmName.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(year)) {
+            updateFilmYear.setError("Поле не может быть пустым");
+            updateFilmYear.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(director)) {
+            updateFilmDirector.setError("Поле не может быть пустым");
+            updateFilmDirector.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(description)) {
+            updateFilmDescription.setError("Поле не может быть пустым");
+            updateFilmDescription.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(trailer)) {
+            updateLink.setError("Поле не может быть пустым");
+            updateLink.requestFocus();
+            return;
+        }
+        if (name.contains("\n")) {
+            updateFilmName.setError("Поле имеет запрещенный символ ('\\n')");
+            updateFilmName.requestFocus();
+            return;
+        }
+        if (year.contains("\n")) {
+            updateFilmYear.setError("Поле имеет запрещенный символ ('\\n')");
+            updateFilmYear.requestFocus();
+            return;
+        }
+        if (director.contains("\n")) {
+            updateFilmDirector.setError("Поле имеет запрещенный символ ('\\n')");
+            updateFilmDirector.requestFocus();
+            return;
+        }
+        if (trailer.contains("\n")) {
+            updateLink.setError("Поле имеет запрещенный символ ('\\n')");
+            updateLink.requestFocus();
+            return;
+        }
+        Film film = new Film(name, year, director, oldImageURL, description, trailer);
 
         databaseReference.setValue(film).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

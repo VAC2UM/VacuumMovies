@@ -43,9 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        String nameUser = intent.getStringExtra(Constant.USERNAME);
-        String emailUser = intent.getStringExtra(Constant.EMAIL);
-        String passwordUser = intent.getStringExtra(Constant.PASSWORD);
         boolean isSuperUser = intent.getBooleanExtra(Constant.SUPERUSER, false);
 
         SharedPreferences.Editor editor = sharedPref.edit();

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,12 +40,9 @@ import com.itproger.vacuummovies.Constant;
 import com.itproger.vacuummovies.Film;
 import com.itproger.vacuummovies.R;
 
-import java.text.DateFormat;
-import java.util.Calendar;
-
 public class UploadFragment extends Fragment {
     ImageView uploadImage;
-    TextInputEditText filmName, filmYear, filmDirector, filmDescription;
+    TextInputEditText filmName, filmYear, filmDirector, filmDescription, trailerLink;
     Button saveButton;
     String imageURL;
     Uri uri;
@@ -59,7 +57,14 @@ public class UploadFragment extends Fragment {
         filmYear = rootView.findViewById(R.id.film_year);
         filmDirector = rootView.findViewById(R.id.film_director);
         filmDescription = rootView.findViewById(R.id.film_description);
+        trailerLink = rootView.findViewById(R.id.film_trailerLink);
         saveButton = rootView.findViewById(R.id.save_film);
+
+        filmName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
+        filmYear.setFilters(new InputFilter[]{new InputFilter.LengthFilter(4)});
+        filmDirector.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
+        filmDescription.setFilters(new InputFilter[]{new InputFilter.LengthFilter(1000)});
+        trailerLink.setFilters(new InputFilter[]{new InputFilter.LengthFilter(150)});
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -99,6 +104,7 @@ public class UploadFragment extends Fragment {
         String year = filmYear.getText().toString();
         String director = filmDirector.getText().toString();
         String description = filmDescription.getText().toString();
+        String trailer = trailerLink.getText().toString();
 
         if (TextUtils.isEmpty(name)) {
             filmName.setError("Поле не может быть пустым");
@@ -120,6 +126,11 @@ public class UploadFragment extends Fragment {
             filmDirector.requestFocus();
             return;
         }
+        if (TextUtils.isEmpty(trailer)) {
+            trailerLink.setError("Поле не может быть пустым");
+            trailerLink.requestFocus();
+            return;
+        }
         if (name.contains("\n")) {
             filmName.setError("Поле имеет запрещенный символ ('\\n')");
             filmName.requestFocus();
@@ -133,6 +144,11 @@ public class UploadFragment extends Fragment {
         if (director.contains("\n")) {
             filmDirector.setError("Поле имеет запрещенный символ ('\\n')");
             filmDirector.requestFocus();
+            return;
+        }
+        if (trailer.contains("\n")) {
+            trailerLink.setError("Поле имеет запрещенный символ ('\\n')");
+            trailerLink.requestFocus();
             return;
         }
 
@@ -168,11 +184,12 @@ public class UploadFragment extends Fragment {
         String year = filmYear.getText().toString();
         String director = filmDirector.getText().toString();
         String description = filmDescription.getText().toString();
+        String trailer = trailerLink.getText().toString();
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference(Constant.FILMS);
         Query checkFilmDB = reference.orderByChild(Constant.NAME).equalTo(name);
 
-        Film film = new Film(name, year, director, imageURL, description);
+        Film film = new Film(name, year, director, imageURL, description, trailer);
 
         checkFilmDB.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

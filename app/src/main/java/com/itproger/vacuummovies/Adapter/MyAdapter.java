@@ -57,6 +57,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                     bundle.putString(Constant.NAME, film.getName());
                     bundle.putString(Constant.DATAIMAGE, film.getDataImage());
                     bundle.putString(Constant.KEY, film.getKey());
+                    bundle.putString(Constant.TRAILERLINK, film.getTrailerLink());
                     filmDetailFragment.setArguments(bundle);
 
                     // Заменяем текущий фрагмент на FilmDetailFragment

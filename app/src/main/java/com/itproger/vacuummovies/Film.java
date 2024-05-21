@@ -7,16 +7,18 @@ public class Film {
     private String dataImage;
     private String key;
     private String description;
+    private String trailerLink;
 
     public Film() {
     }
 
-    public Film(String name, String year, String director, String dataImage, String description) {
+    public Film(String name, String year, String director, String dataImage, String description, String trailerLink) {
         this.name = name;
         this.year = year;
         this.director = director;
         this.dataImage = dataImage;
         this.description = description;
+        this.trailerLink = trailerLink;
     }
 
     public String getName() {
@@ -65,5 +67,13 @@ public class Film {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getTrailerLink() {
+        return trailerLink;
+    }
+
+    public void setTrailerLink(String trailerLink) {
+        this.trailerLink = trailerLink;
     }
 }
