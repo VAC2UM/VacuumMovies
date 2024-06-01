@@ -12,8 +12,8 @@
 
 
     <style name="toolbar">
-        <item name="android:editTextColor">#FFFFFF</item>
-        <item name="android:textColorHint">#FFFFFF</item>
+        <item name="android:editTextColor">@color/lavender</item>
+        <item name="android:textColorHint">@color/lavender</item>
     </style>
 
     <style name="Theme.VacuumMovies" parent="Base.Theme.VacuumMovies" />
