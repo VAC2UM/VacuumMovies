@@ -12,6 +12,7 @@
     <string name="logout">Выйти</string>
     <string name="enter_password">Введите пароль</string>
     <string name="settings">Настройки</string>
+    <string name="info">Информация</string>
     <string name="profile">Профиль</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="add_film">Добавить фильм</string>

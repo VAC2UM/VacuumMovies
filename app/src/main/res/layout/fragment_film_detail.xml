@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:text="Название"
                 android:textColor="@color/lavender"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -47,7 +47,7 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="Directed by"
+                    android:text="Режиссер"
                     android:textColor="@color/lavender"
                     android:textSize="18sp" />
             </LinearLayout>

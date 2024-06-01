@@ -15,7 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.itproger.vacuummovies.Constant;
 import com.itproger.vacuummovies.Fragments.FilmsFragment;
 import com.itproger.vacuummovies.Fragments.ProfileFragment;
-import com.itproger.vacuummovies.Fragments.SettingsFragment;
+import com.itproger.vacuummovies.Fragments.InfoFragment;
 import com.itproger.vacuummovies.Fragments.SuperProfileFragment;
 import com.itproger.vacuummovies.R;
 import com.itproger.vacuummovies.databinding.ActivityMainBinding;
@@ -60,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     replaceFragment(new ProfileFragment());
                 }
-            } else if (itemId == R.id.settings) {
-                replaceFragment(new SettingsFragment());
+            } else if (itemId == R.id.info) {
+                replaceFragment(new InfoFragment());
             }
             return true;
         });

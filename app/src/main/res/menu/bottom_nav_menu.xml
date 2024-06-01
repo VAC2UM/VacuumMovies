@@ -9,7 +9,7 @@
         android:icon="@drawable/profile_icon"
         android:title="@string/profile" />
     <item
-        android:id="@+id/settings"
-        android:icon="@drawable/settings"
-        android:title="@string/settings" />
+        android:id="@+id/info"
+        android:icon="@drawable/info_icon"
+        android:title="@string/info" />
 </menu>
