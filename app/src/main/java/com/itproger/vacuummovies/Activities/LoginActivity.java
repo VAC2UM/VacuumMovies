@@ -3,7 +3,9 @@ package com.itproger.vacuummovies.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -42,11 +44,33 @@ public class LoginActivity extends AppCompatActivity {
         editTextLogin.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
         editTextPassword.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
 
+        editTextLogin.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    editTextPassword.requestFocus();
+                    return true;
+                }
+                return false;
+            }
+        });
+        editTextPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    if (validateUsername() && validatePassword()) {
+                        checkUser();
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!validateUsername() | !validatePassword()) {
-
                 } else {
                     checkUser();
                 }

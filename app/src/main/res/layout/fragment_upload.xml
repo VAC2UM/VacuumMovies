@@ -51,6 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/film_name"
+                    android:imeOptions="actionNext"
                     android:textColor="@color/white">
 
                 </com.google.android.material.textfield.TextInputEditText>
@@ -67,7 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/film_date"
-                    android:inputType="number"
+                    android:imeOptions="actionNext"
                     android:textColor="@color/white">
 
                 </com.google.android.material.textfield.TextInputEditText>
@@ -84,6 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/film_director"
+                    android:imeOptions="actionNext"
                     android:textColor="@color/white">
 
                 </com.google.android.material.textfield.TextInputEditText>
@@ -100,6 +102,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/film_description"
+                    android:imeOptions="actionNext"
                     android:textColor="@color/white">
 
                 </com.google.android.material.textfield.TextInputEditText>
@@ -116,6 +119,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/trailerLink"
+                    android:imeOptions="actionDone"
                     android:textColor="@color/white">
 
                 </com.google.android.material.textfield.TextInputEditText>

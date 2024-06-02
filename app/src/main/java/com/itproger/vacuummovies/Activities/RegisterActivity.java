@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -51,6 +53,38 @@ public class RegisterActivity extends AppCompatActivity {
         editTextEmail.setFilters(new InputFilter[]{new InputFilter.LengthFilter(256)});
         editTextPassword.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
 
+        editTextUsername.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    editTextEmail.requestFocus();
+                    return true;
+                }
+                return false;
+            }
+        });
+        editTextEmail.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    editTextPassword.requestFocus();
+                    return true;
+                }
+                return false;
+            }
+        });
+        editTextPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    uploadUser();
+                    return true;
+                }
+                return false;
+            }
+        });
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

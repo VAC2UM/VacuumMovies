@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,62 @@ public class UploadFragment extends Fragment {
         filmDirector.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
         filmDescription.setFilters(new InputFilter[]{new InputFilter.LengthFilter(1000)});
         trailerLink.setFilters(new InputFilter[]{new InputFilter.LengthFilter(150)});
+
+        filmName.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    filmYear.requestFocus();
+                    return true;
+                }
+                return false;
+            }
+        });
+        filmYear.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    filmDirector.requestFocus();
+                    return true;
+                }
+                return false;
+            }
+        });
+        filmDirector.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    filmDescription.requestFocus();
+                    return true;
+                }
+                return false;
+            }
+        });
+        filmDescription.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    trailerLink.requestFocus();
+                    return true;
+                }
+                return false;
+            }
+        });
+        trailerLink.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    saveData();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),

@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +72,65 @@ public class UpdateFragment extends Fragment {
         updateFilmDirector.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
         updateFilmDescription.setFilters(new InputFilter[]{new InputFilter.LengthFilter(1000)});
         updateLink.setFilters(new InputFilter[]{new InputFilter.LengthFilter(150)});
+        updateFilmName.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    updateFilmYear.requestFocus();
+                    updateFilmYear.setSelection(updateFilmYear.getText().length());
+                    return true;
+                }
+                return false;
+            }
+        });
+        updateFilmYear.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    updateFilmDirector.requestFocus();
+                    updateFilmDirector.setSelection(updateFilmDirector.getText().length());
+                    return true;
+                }
+                return false;
+            }
+        });
+        updateFilmDirector.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    updateFilmDescription.requestFocus();
+                    updateFilmDescription.setSelection(updateFilmDescription.getText().length());
+                    return true;
+                }
+                return false;
+            }
+        });
+        updateFilmDescription.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    updateLink.requestFocus();
+                    updateLink.setSelection(updateLink.getText().length());
+                    return true;
+                }
+                return false;
+            }
+        });
+        updateLink.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    saveData();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),

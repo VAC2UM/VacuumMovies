@@ -42,6 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/loginName"
+                android:imeOptions="actionNext"
                 android:textColor="@color/white">
 
             </com.google.android.material.textfield.TextInputEditText>
@@ -67,6 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
+                android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:textColor="@color/white">
 
