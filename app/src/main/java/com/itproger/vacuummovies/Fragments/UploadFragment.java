@@ -188,24 +188,10 @@ public class UploadFragment extends Fragment {
             trailerLink.requestFocus();
             return;
         }
-        if (name.contains("\n")) {
-            filmName.setError("Поле имеет запрещенный символ ('\\n')");
+        if (name.contains(".") || name.contains("$") || name.contains("[")
+                || name.contains("]") || name.contains("#") || name.contains("%") || name.contains("\\") || name.contains("/")) {
+            filmName.setError("Поле содержит запрещенные символы: '.', '$', '[', ']', '#', '%', '\\', '/'");
             filmName.requestFocus();
-            return;
-        }
-        if (year.contains("\n")) {
-            filmYear.setError("Поле имеет запрещенный символ ('\\n')");
-            filmYear.requestFocus();
-            return;
-        }
-        if (director.contains("\n")) {
-            filmDirector.setError("Поле имеет запрещенный символ ('\\n')");
-            filmDirector.requestFocus();
-            return;
-        }
-        if (trailer.contains("\n")) {
-            trailerLink.setError("Поле имеет запрещенный символ ('\\n')");
-            trailerLink.requestFocus();
             return;
         }
 

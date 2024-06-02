@@ -241,24 +241,10 @@ public class UpdateFragment extends Fragment {
             updateLink.requestFocus();
             return;
         }
-        if (name.contains("\n")) {
-            updateFilmName.setError("Поле имеет запрещенный символ ('\\n')");
+        if (name.contains(".") || name.contains("$") || name.contains("[")
+                || name.contains("]") || name.contains("#") || name.contains("%") || name.contains("\\") || name.contains("/")) {
+            updateFilmName.setError("Поле содержит запрещенные символы: '.', '$', '[', ']', '#', '%', '\\', '/'");
             updateFilmName.requestFocus();
-            return;
-        }
-        if (year.contains("\n")) {
-            updateFilmYear.setError("Поле имеет запрещенный символ ('\\n')");
-            updateFilmYear.requestFocus();
-            return;
-        }
-        if (director.contains("\n")) {
-            updateFilmDirector.setError("Поле имеет запрещенный символ ('\\n')");
-            updateFilmDirector.requestFocus();
-            return;
-        }
-        if (trailer.contains("\n")) {
-            updateLink.setError("Поле имеет запрещенный символ ('\\n')");
-            updateLink.requestFocus();
             return;
         }
 
@@ -322,26 +308,13 @@ public class UpdateFragment extends Fragment {
             updateLink.requestFocus();
             return;
         }
-        if (name.contains("\n")) {
-            updateFilmName.setError("Поле имеет запрещенный символ ('\\n')");
+        if (name.contains(".") || name.contains("$") || name.contains("[")
+                || name.contains("]") || name.contains("#") || name.contains("%") || name.contains("\\") || name.contains("/")) {
+            updateFilmName.setError("Поле содержит запрещенные символы: '.', '$', '[', ']', '#', '%', '\\', '/'");
             updateFilmName.requestFocus();
             return;
         }
-        if (year.contains("\n")) {
-            updateFilmYear.setError("Поле имеет запрещенный символ ('\\n')");
-            updateFilmYear.requestFocus();
-            return;
-        }
-        if (director.contains("\n")) {
-            updateFilmDirector.setError("Поле имеет запрещенный символ ('\\n')");
-            updateFilmDirector.requestFocus();
-            return;
-        }
-        if (trailer.contains("\n")) {
-            updateLink.setError("Поле имеет запрещенный символ ('\\n')");
-            updateLink.requestFocus();
-            return;
-        }
+
         Film film = new Film(name, year, director, oldImageURL, description, trailer);
 
         databaseReference.setValue(film).addOnCompleteListener(new OnCompleteListener<Void>() {

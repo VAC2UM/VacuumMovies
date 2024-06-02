@@ -148,14 +148,14 @@ public class RegisterActivity extends AppCompatActivity {
             editTextPassword.requestFocus();
             return;
         }
-        if (username.contains("\n") || username.contains(".") || username.contains("$") || username.contains("[")
+        if (username.contains(".") || username.contains("$") || username.contains("[")
                 || username.contains("]") || username.contains("#") || username.contains("%") || username.contains("\\") || username.contains("/")) {
-            editTextUsername.setError("Поле содержит запрещенные символы: '.', '$', '[', ']', '#', '%', '\\', '/', '\\n'");
+            editTextUsername.setError("Поле содержит запрещенные символы: '.', '$', '[', ']', '#', '%', '\\', '/'");
             editTextUsername.requestFocus();
             return;
         }
-        if (email.contains("\n") || email.contains(" ")) {
-            editTextEmail.setError("Поле имеет запрещенный символ ('\\n', '␣')");
+        if (email.contains(" ")) {
+            editTextEmail.setError("Поле имеет запрещенный символ ('␣')");
             editTextEmail.requestFocus();
             return;
         }
