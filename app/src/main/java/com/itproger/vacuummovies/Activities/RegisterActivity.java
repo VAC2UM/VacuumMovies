@@ -186,7 +186,6 @@ public class RegisterActivity extends AppCompatActivity {
                             if (snapshot.exists()) {
                                 editTextEmail.setError("Пользователь с такой почтой уже существует");
                             } else {
-
                                 reference.child(username).setValue(user);
                                 Toast.makeText(RegisterActivity.this, "Пользователь добавлен", Toast.LENGTH_SHORT).show();
 

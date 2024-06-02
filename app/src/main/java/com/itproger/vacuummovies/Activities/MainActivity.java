@@ -1,7 +1,5 @@
 package com.itproger.vacuummovies.Activities;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -9,27 +7,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.preference.PreferenceManager;
 
 import com.google.firebase.database.FirebaseDatabase;
-import com.itproger.vacuummovies.Constant;
 import com.itproger.vacuummovies.Fragments.FilmsFragment;
-import com.itproger.vacuummovies.Fragments.ProfileFragment;
 import com.itproger.vacuummovies.Fragments.InfoFragment;
-import com.itproger.vacuummovies.Fragments.SuperProfileFragment;
+import com.itproger.vacuummovies.Fragments.ProfileFragment;
 import com.itproger.vacuummovies.R;
 import com.itproger.vacuummovies.databinding.ActivityMainBinding;
 
 
 public class MainActivity extends AppCompatActivity {
 
-//    Использование binding в Android дает доступ к представлениям (views) макета (layout) напрямую
+    //    Использование binding в Android дает доступ к представлениям (views) макета (layout) напрямую
 //    из кода без необходимости вызова метода findViewById().
 //    Он упрощает работу с представлениями и делает код более чистым и лаконичным.
     ActivityMainBinding binding;
     FirebaseDatabase db;
-    SharedPreferences sharedPref;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +32,6 @@ public class MainActivity extends AppCompatActivity {
         replaceFragment(new FilmsFragment());
 
         db = FirebaseDatabase.getInstance();
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-
-        Intent intent = getIntent();
-
-        boolean isSuperUser = intent.getBooleanExtra(Constant.SUPERUSER, false);
-
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putBoolean(getString(R.string.saved_super_user_key), isSuperUser);
-        editor.apply();
 
         binding.bottomNavigatiomView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -55,11 +39,7 @@ public class MainActivity extends AppCompatActivity {
             if (itemId == R.id.filmsList) {
                 replaceFragment(new FilmsFragment());
             } else if (itemId == R.id.profile) {
-                if (isSuperUser) {
-                    replaceFragment(new SuperProfileFragment());
-                } else {
-                    replaceFragment(new ProfileFragment());
-                }
+                replaceFragment(new ProfileFragment());
             } else if (itemId == R.id.info) {
                 replaceFragment(new InfoFragment());
             }
@@ -68,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-
+                // Обработчик нажатия кнопки "Назад"
             }
         });
     }

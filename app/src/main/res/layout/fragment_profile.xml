@@ -6,12 +6,40 @@
     android:background="@color/main_color"
     tools:context=".Fragments.ProfileFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Профиль"
-        android:textColor="@color/white"
-        android:textSize="50sp" />
+        android:orientation="vertical"
+        android:layout_marginStart="10dp">
+
+        <TextView
+            android:id="@+id/role"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Роль"
+            android:textColor="@color/white"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Имя"
+            android:textColor="@color/lavender"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/userEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Почта"
+            android:textColor="@color/lavender"
+            android:textSize="20sp" />
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/logout"
@@ -22,4 +50,15 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="120dp"
         android:text="@string/logout" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="40dp"
+        android:backgroundTint="@color/lavender"
+        android:src="@drawable/baseline_add_24" />
+
 </RelativeLayout>

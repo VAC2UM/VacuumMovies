@@ -1,6 +1,7 @@
 package com.itproger.vacuummovies.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.KeyEvent;
@@ -35,6 +36,15 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
+        String savedName = sharedPreferences.getString("name", null);
+        if (savedName != null) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
 
         editTextLogin = findViewById(R.id.loginName);
         editTextPassword = findViewById(R.id.password);
@@ -128,6 +138,13 @@ public class LoginActivity extends AppCompatActivity {
                         String nameFromDB = snapshot.child(userUserName).child(Constant.USERNAME).getValue(String.class);
                         String emailFromDB = snapshot.child(userUserName).child(Constant.EMAIL).getValue(String.class);
                         boolean isSuperUser = snapshot.child(userUserName).child(Constant.SUPERUSER).getValue(Boolean.class);
+
+                        SharedPreferences sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("name", nameFromDB);
+                        editor.putString("email", emailFromDB);
+                        editor.putBoolean("isSuperUser", isSuperUser);
+                        editor.apply();
 
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 

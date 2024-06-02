@@ -1,5 +1,6 @@
 package com.itproger.vacuummovies.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -40,6 +41,7 @@ public class FilmDetailFragment extends Fragment {
     String imageUrl = "";
     String trailer;
     SharedPreferences sharedPref;
+    boolean isSuperUser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,8 +58,8 @@ public class FilmDetailFragment extends Fragment {
         deleteBtn = rootView.findViewById(R.id.deleteButton);
         editBtn = rootView.findViewById(R.id.editButton);
 
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(requireContext());
-        boolean isSuperUser = sharedPref.getBoolean(getString(R.string.saved_super_user_key), false);
+        sharedPref = getContext().getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE);
+        isSuperUser = sharedPref.getBoolean("isSuperUser", false);
 
         if (isSuperUser) {
             floatList.setVisibility(View.VISIBLE);
@@ -124,12 +126,19 @@ public class FilmDetailFragment extends Fragment {
         youtubeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (trailer != null && !trailer.isEmpty()) {
-                    goToURL(trailer);
-                } else {
-                    Toast.makeText(getContext(), "Трейлера еще нет", Toast.LENGTH_SHORT).show();
-                }            }
+                try {
+                    if (trailer != null && !trailer.isEmpty()) {
+                        goToURL(trailer);
+                    } else {
+                        Toast.makeText(getContext(), "Трейлера еще нет", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(), "Произошла ошибка", Toast.LENGTH_SHORT).show();
+                }
+            }
         });
+
 
         return rootView;
     }
