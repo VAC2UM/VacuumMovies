@@ -1,5 +1,6 @@
 package com.itproger.vacuummovies.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -22,6 +23,7 @@ public class InfoFragment extends Fragment {
     TextView personalDesc;
     ImageView githubBtn;
     SharedPreferences sharedPref;
+    boolean isSuperUser;
 
 
     @Override
@@ -34,8 +36,9 @@ public class InfoFragment extends Fragment {
         usindDesc = rootView.findViewById(R.id.usingDesc);
         personalDesc = rootView.findViewById(R.id.personalDesc);
 
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(requireContext());
-        boolean isSuperUser = sharedPref.getBoolean(getString(R.string.saved_super_user_key), false);
+        sharedPref = getContext().getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE);
+
+        isSuperUser = sharedPref.getBoolean("isSuperUser", false);
 
         githubBtn.setOnClickListener(view -> {
             String url = "https://github.com/VAC2UM/VacuumMovies";
@@ -46,9 +49,9 @@ public class InfoFragment extends Fragment {
         usindDesc.setText("На главной странице вы увидите список фильмов, которые обозначены соответствующим постером. Сверху есть строка поиска фильма по его названию. Нажав на постер, вы перейдете на страницу с информацией о данном фильме.\n" +
                 "В левом нижнем углу вы увидите значок YouTube, нажав на который вы сможете посмотреть трейлер к данному фильму.");
 
-        if(isSuperUser){
+        if (isSuperUser) {
             personalDesc.setText("Вы являетесь админом.\nВам доступен новый функционал:\n1) На странице вашего профиля в правом нижнем углу есть кнопка для добавления фильма в БД\n2) Перейдя на страницу с фильмом в правом нижнем углу будет выпадающий список, нажав на который у вас будет выбор (редактировать или удалить фильм)");
-        }else{
+        } else {
             personalDesc.setText("Вы обычный пользователь.\nВам доступен только вышеуказанный функционал.");
         }
         return rootView;
